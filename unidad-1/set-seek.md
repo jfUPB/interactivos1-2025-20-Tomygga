@@ -18,7 +18,7 @@ o alguna experiencia que requiera el uso del cuerpo y la tecnología.
 
 #### ¿Qué es el diseño/arte generativo?
 
-Es un tipo de arte que usab sistemas autonomos para generar obras basadas en alguna cosa, como un video para una cancion, quizas tambien
+Es un tipo de arte que usa sistemas autonomos para generar obras basadas en alguna cosa, como un video para una cancion, quizas tambien
 se pueda incluir ampliar una obra artistica como un cuadro, o incluso generar una obra de arte mediante un prompt y algunas lineas de codigo
 donde se pueden configurar algunas caracteristicas de la obra.
 
