@@ -6,7 +6,6 @@
 
 #### ¿Qué es un sistema físico interactivo?
 
-
 Es un sistema que implementa complementos fisicos y digitales para hacer experiencias de manera mas dinamicas.
 
 #### ¿Cómo podrías aplicar lo que has visto en tu perfil profesional?
@@ -20,7 +19,8 @@ o alguna experiencia que requiera el uso del cuerpo y la tecnología.
 
 Es un tipo de arte que usa sistemas autonomos para generar obras basadas en alguna cosa, como un video para una cancion, quizas tambien
 se pueda incluir ampliar una obra artistica como un cuadro, o incluso generar una obra de arte mediante un prompt y algunas lineas de codigo
-donde se pueden configurar algunas caracteristicas de la obra.
+donde se pueden configurar algunas caracteristicas de la obra. Estas mismas usan un conjunto de reglas en un software, una maquina o cualquier
+procedimiento experimental.
 
 #### ¿Cómo podrías aplicar lo que has visto en tu perfil profesional?
 
