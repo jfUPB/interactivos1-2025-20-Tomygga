@@ -25,4 +25,5 @@ procedimiento experimental.
 #### ¿Cómo podrías aplicar lo que has visto en tu perfil profesional?
 
 la verdad es que esto se puede usar en cualquier cosa, ya sea en experiencias para mejorar visualmente un evento y la interaccion con este,
-en los videojuegos se podria usar para casi todo, de igual manera con la animacion.
+en los videojuegos se podria usar para casi todo, de igual manera con la animacion. Aparte, con estas herramientas podemos hacer nuestro trabajo
+mucho mas facil.
