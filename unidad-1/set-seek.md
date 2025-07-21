@@ -20,10 +20,24 @@ o alguna experiencia que requiera el uso del cuerpo y la tecnología.
 Es un tipo de arte que usa sistemas autonomos para generar obras basadas en alguna cosa, como un video para una cancion, quizas tambien
 se pueda incluir ampliar una obra artistica como un cuadro, o incluso generar una obra de arte mediante un prompt y algunas lineas de codigo
 donde se pueden configurar algunas caracteristicas de la obra. Estas mismas usan un conjunto de reglas en un software, una maquina o cualquier
-procedimiento experimental.
+procedimiento experimental. Este arte se caracteriza por estar hecho por una maquina con instrucciones humanas, la maquina dibuja y pinta, el 
+humano programa que se se va a dibujar y de que colores se va a pintar.
 
 #### ¿Cómo podrías aplicar lo que has visto en tu perfil profesional?
 
 la verdad es que esto se puede usar en cualquier cosa, ya sea en experiencias para mejorar visualmente un evento y la interaccion con este,
 en los videojuegos se podria usar para casi todo, de igual manera con la animacion. Aparte, con estas herramientas podemos hacer nuestro trabajo
 mucho mas facil.
+
+### Actividad 03
+
+Para hacer esta actividad, hicimos uso de un microbit y de unas aplicaciones llamadas microbit editor y p5.js. El input, proceso y el output de este
+ejercicio no son tan dificiles de identificar en mi caso, el microbit es el input, el dispositivo que conectamos para poder realizar la actividad y que
+carga su información al computador. El proceso se hizo en p5,js y microbit editor, con estas aplicaciones le dimos instrucciones a lo que el microbit debe
+realizar, el corazon y la carita feliz que se vio en las luces, todo eso fue procesado en el computador con esas dos aplicaciones. Para finalizar, el output
+seria la información del proceso cargada en el microbit, es decir, las luces led, ya que estas muestran el resultado de lo que hicimos en el proceso, el corazón
+y la carita feliz.
+
+### Actividad 04
+
+
