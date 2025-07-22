@@ -39,5 +39,41 @@ seria la información del proceso cargada en el microbit, es decir, las luces le
 y la carita feliz.
 
 ### Actividad 04
+[LINK P5JS](https://editor.p5js.org/Tomygga/sketches/7hMKzJwGH)
 
+CODIGO
+```
+function setup() {
+  createCanvas(600, 600);
+}
 
+function draw() {
+  background(15);
+  drawOjo();
+  drawCuerpoDentroOjo();
+}
+
+function drawOjo()
+{
+  push();
+  translate(width / 2, height / 2);
+  noFill();
+  stroke(1450);
+  strokeWeight(10);
+  ellipse(0, 0, 400, 400);
+}
+
+function drawCuerpoDentroOjo(){
+  fill(255);
+  ellipse(0, -50, 60, 60);
+  rectMode(CENTER);
+  rect(0, 40, 50, 100, 20);
+  
+  ellipse(-20, 90, 25, 100);     
+  ellipse(20, 90, 25, 100);   
+   ellipse(-35, 30, 20, 60);
+  ellipse(35, 40, 20, 60);
+  pop();
+
+}
+````
