@@ -77,3 +77,7 @@ function drawCuerpoDentroOjo(){
 
 }
 ````
+OBRA
+
+<img width="593" height="597" alt="image" src="https://github.com/user-attachments/assets/6bc217e8-a96e-427f-9c60-f8eb93d75417" />
+
