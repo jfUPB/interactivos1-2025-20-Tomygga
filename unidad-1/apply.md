@@ -12,11 +12,11 @@ uart.init(baudrate=115200)
 
 while True:
     if button_a.is_pressed():
-        uart.write('A\n')  
+        uart.write('A')  
     elif button_b.is_pressed():
-        uart.write('B\n')
+        uart.write('B')
     else:
-        uart.write('N\n')  
+        uart.write('N')  
     sleep(100)
 ```
 #### Codigo P5JS
@@ -82,5 +82,8 @@ function connectBtnClick()
   }
 }
 ```
+### Actividad 05
+
+
 
 
