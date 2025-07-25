@@ -25,3 +25,14 @@
 
 ### ACTIVIDAD 08
 
+### actividad 09
+
+#### Feedback
+
+1. El ejemplo que el profe dio en la primera clase, en el cual manejaba con los dedosa un personaje, me parecia bastante interesante y bacano lo que se puede hacer con eso.
+2. na la verdad no
+3. me interesa mas las visualizaciones porque no tengo un microbit para probar mas ejercicios con estos dispositivos.
+4. La verdad bastante equilibrado, iguald e ejemplos igual de ejercicios.
+5. ño
+
+
