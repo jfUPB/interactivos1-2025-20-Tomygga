@@ -108,14 +108,8 @@ while True:
 
     sleep(100)
 ````
-Este primer codigo lo que hace es configurar el boton del microbit, en las primeras dos instrucciones del codigo, estas envian información al microbit para
-poder programar lo demas, la arte del while true, es un bucle en el cual busca que cuando presionemos el boton A, verifique si desde la ultima comprobación 
-este mismo fue presionado antes, si usaramos el was y no el is, este mismo buscaría si el boton fue presionado en la ultima comprobacion, en vez de preguntarse
-si esta siendo presionado en ese mismo momento. La parte donde aparece la N es para que cuando se suelte el boton del microbit, este mismo vuelva al color original
-del cuadrado, es decir, es como si hicieramos un interruptor de apagar y prender una luz, pero si soltamos el boton la luz se apaga.
-
-En resumen, este codigo nos sirve para que el microbit y la computadora sepan que presionamos el boton A y asi poder usarlo para lo que vamos a hacer a futuro. Aparte
-de que tambien esta lo de que cuando soltemos el boton, el cuadrado vuelva al color original.
+En resumen, este codigo nos sirve para que se pueda usar un botón del microbit, en este caso el boton A, y que cuando soltemos el boton entre en una situación N, esto nos
+sirve como si un fuera un interruptor, si dejamos presionado el boton A, el cuadrado cambia de color, si lo soltamos el cuadrado vuelve a su color original (N). 
 
 ##### PARTE 2: CÓDIGO EN P5JS
 ````
