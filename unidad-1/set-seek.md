@@ -42,7 +42,7 @@ y la carita feliz.
 [LINK P5JS](https://editor.p5js.org/Tomygga/sketches/7hMKzJwGH)
 
 CODIGO
-```
+``` js
 function setup() {
   createCanvas(600, 600);
 }
