@@ -83,7 +83,7 @@ function connectBtnClick()
 }
 ```
 ### Actividad 05
-#### Explicación código
+#### Explicación Sistema Fisico Interactivo y como funciona (Código)
 
 El Sistema fisico interactivo de esta actividad lo que hace es usar los botones del microbit para hacer un cambio de color en un cuadrado que aparecera en la pantalla,
 y que cuando suelten el boton, este vuelva a su color original. Para ello voy a hacer una explicacion de los codigos que nos dieron y asi explicar como funciona el sistema
