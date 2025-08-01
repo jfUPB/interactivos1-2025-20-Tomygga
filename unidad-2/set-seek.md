@@ -66,10 +66,10 @@ el segundo espera a que pase ese tiempo anterior mencionado para alternar los es
 Este programa tiene un evento de tiempo de forma interna, que es cuando startTime sobrepasa a Interval, de resto, el programa no tiene algun input de forma externa.
 
 #### ¿Cuáles son las acciones en el programa?
--Mostrar el estado inicial del pprograma (init)
--Esperar un tiempo determinado (WaitTimeout)
--alternar el estado de los pixeles (Encendido, apagado)(0,9)
--actualizar el led (display_set_pixel)
+- Mostrar el estado inicial del pprograma (init)
+- Esperar un tiempo determinado (WaitTimeout)
+- alternar el estado de los pixeles (Encendido, apagado)(0,9)
+- actualizar el led (display_set_pixel)
 
 ### ACTIVIDAD 2
 ````.py
