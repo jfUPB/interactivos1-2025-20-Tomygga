@@ -72,5 +72,63 @@ Este programa tiene un evento de tiempo de forma interna, que es cuando startTim
 -actualizar el led (display_set_pixel)
 
 ### ACTIVIDAD 2
+````.py
+from microbit import *
+import utime
+
+# Estados 
+RED = "Red"
+GREEN = "Green"
+YELLOW = "Yellow"
+
+# Estado inicial
+estado = RED
+
+def mostrar_estado(estado):
+    display.clear()
+    if estado == RED:
+        display.set_pixel(2, 0, 9)  # Rojo arriba
+    elif estado == YELLOW:
+        display.set_pixel(2, 2, 9)  # Amarillo en el centro
+    elif estado == GREEN:
+        display.set_pixel(2, 4, 9)  # Verde abajo
+
+# Bucle principal 
+while True:
+    mostrar_estado(estado)
+
+    if estado == RED:
+        utime.sleep(3)
+        estado = GREEN
+    elif estado == GREEN:
+        utime.sleep(3)
+        estado = YELLOW
+    elif estado == YELLOW:
+        utime.sleep(1)
+        estado = RED
+````
+##### Estados
+Serian Red, Yellow y Green, ya que estos representan los estados que tiene un semaforo pero un microbit, donde el estado inicial es Red.
+
+##### Eventos
+En este caso, los eventos vienen del paso del tiempo, es decir son implicitos:
+- Después de 3 segundos en RED, ocurre el evento (Cambia a Green)
+- Después de 3 segundos en GREEN, ocurre el evento (Cambia a Yellow)
+- Después de 1 segundo en YELLOW, ocurre el evento (Cambia a Red)
+
+Tambien esta el utime.sleep que con estos cambios de estado representan los eventos.
+
+##### ACCIONES
+````py
+def mostrar_estado(estado):
+    display.clear()
+    if estado == RED:
+        display.set_pixel(2, 0, 9)
+    elif estado == YELLOW:
+        display.set_pixel(2, 2, 9)
+    elif estado == GREEN:
+        display.set_pixel(2, 4, 9)
+````
+Son estos, se encargan de darle la posicion al led y mostrarlo en la pantalla.
 
 
