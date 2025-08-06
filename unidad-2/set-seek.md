@@ -84,8 +84,7 @@ estado = RED
 
 def mostrar_estado(estado):
     display.clear()
-    if estado == RED
-:
+    if estado == RED:
         display.set_pixel(2, 0, 9)  
     elif estado == YELLOW:
         display.set_pixel(2, 2, 9)  
@@ -220,6 +219,7 @@ EVENTOS:
 - Vector 1: INIT muestra happy y despues pasa a happy, pasa la prueba y es funcional.
 - Vector 2: en smile cuando no se presionada nada se deja pasar el tiempo, despues muestra a sad y cambia a sad, pasa la prueba.
 - Vector 3: En happy cuando se presiona muestra a sad y pasa a sad, prueba exitosa.
+
 
 
 
