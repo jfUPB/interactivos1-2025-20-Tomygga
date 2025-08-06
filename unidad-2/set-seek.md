@@ -197,10 +197,14 @@ while True:
             current_state = STATE_HAPPY
 ````
 #### Explica por qué decimos que este programa permite realizar de manera concurrente varias tareas.
-Este programa simula las tareas de una manera concurrente al manejar los eventos y el tiempo de estos a la vez sin detenerse ni una vez, lo que permite que el 
+Este programa simula las tareas de una manera concurrente al manejar los eventos y el tiempo de ambos a la vez sin detenerse, lo que permite que el 
 programa de respuestas simultaneas.
 
 #### Identifica los estados, eventos y acciones en el programa
+ACCIONES:
+- MOSTRAR IMAGEN
+- CAMBIAR ESTADO
+  
 ESTADOS: 
 - INIT
 - HAPPY
@@ -211,15 +215,13 @@ EVENTOS:
 - PASO DEL TIEMPO
 - BOTÓN A
 
-ACCIONES:
-- MOSTRAR IMAGEN
-- CAMBIAR ESTADO
 
 #### Describe y aplica al menos 3 vectores de prueba para el programa. Para definir un vector de prueba debes llevar al sistema a un estado, generar los eventos y observar el estado siguiente y las acciones que ocurrirán. Por tanto, un vector de prueba tiene unas condiciones iniciales del sistema, unos resultados esperados y los resultados realmente obtenidos. Si el resultado obtenido es igual al esperado entonces el sistema pasó el vector de prueba, de lo contrario el sistema puede tener un error.
 
 - Vector 1: INIT muestra happy y despues pasa a happy, pasa la prueba y es funcional.
 - Vector 2: en smile cuando no se presionada nada se deja pasar el tiempo, despues muestra a sad y cambia a sad, pasa la prueba.
 - Vector 3: En happy cuando se presiona muestra a sad y pasa a sad, prueba exitosa.
+
 
 
 
