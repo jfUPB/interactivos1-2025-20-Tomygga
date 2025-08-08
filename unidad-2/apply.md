@@ -9,7 +9,7 @@ Diagrama del ejercicio:
 
 ### ACTIVIDAD 05
 #### CODIGO DEL EJERCICIO
-````
+````.py
 from microbit import *
 import utime
 
@@ -72,4 +72,5 @@ while True:
 - Cuando se presione el boton shake tiene que empezar la cuenta regresiva
 - Explosion cuando el tiempo llegue a 0
 - Cuando llegue a 0 debe salir la imagen de skull
+
 
