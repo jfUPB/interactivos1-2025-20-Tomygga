@@ -169,7 +169,6 @@ class SerialTask {
   }
 }
 
-
 class BombaTask {
   constructor(){
     this.PASSWORD = ['A','B','A'];
@@ -201,7 +200,7 @@ class BombaTask {
         this.count--;
         this.startTime = millis();
         if(this.count <= 0){
-          this.state = 'EXPLODED';
+          this.state = 'EXPLOSION';
         }
       }
 
@@ -210,7 +209,7 @@ class BombaTask {
         event.clear();
         if(this.key.length === this.PASSWORD.length){
           if(this.key.join('') === this.PASSWORD.join('')){
-            this.state = 'CONFIG';
+            this.state = 'CONFIGURACION';
             this.count = 20;
           }
           this.key = [];
@@ -231,14 +230,14 @@ class BombaTask {
   display(){
     fill(255);
     if(this.state === 'CONFIGURACION'){
-      text(`CONFIG\n${this.count}`, width/2, height/2);
+      text(`CONFIGURACION\n${this.count}`, width/2, height/2);
     }
     else if(this.state === 'ARMADO'){
-      text(`ARMED\n${this.count}`, width/2, height/2);
+      text(`ARMADO\n${this.count}`, width/2, height/2);
     }
     else if(this.state === 'EXPLOSION'){
       fill(255,0,0);
-      text("EXPLODED", width/2, height/2);
+      text("EXPLOSION", width/2, height/2);
     }
   }
 }
@@ -288,6 +287,7 @@ while True:
         display.show(Image.HAPPY)
         sleep(200)
 ```
+
 
 
 
