@@ -206,7 +206,7 @@ function setupGIF() {
 
 ```
 
-[Enlace a la aplicación modificada]("https://editor.p5js.org/Tomygga/full/H1oflc9q6kV")
+[Enlace a la aplicación modificada](https://editor.p5js.org/Tomygga/sketches/LcyL3TWIK)
 
 Código modificado:
 
@@ -599,6 +599,7 @@ function draw() {
 ## Video
 
 [Video demostratativo](URL)
+
 
 
 
