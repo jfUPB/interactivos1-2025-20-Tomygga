@@ -438,8 +438,6 @@ function setup() {
     color(0, 255, 0),   // Verde
     color(0, 0, 255),   // Azul
     color(255, 255, 0), // Amarillo
-    color(255, 0, 255), // Magenta
-    color(0, 255, 255), // Cian
     color(0)            // Negro otra vez
   ];
   
@@ -593,6 +591,7 @@ function draw() {
 ## Video
 
 [Video demostratativo](URL)
+
 
 
 
