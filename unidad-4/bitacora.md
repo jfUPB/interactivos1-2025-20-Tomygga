@@ -409,7 +409,7 @@ function setupGIF() {
   });
 }
 
-// ----------- MICROBIT SERIAL INTEGRATION -----------
+// MICROBIT
 let port;
 let reader;
 let microbitX = 0;
@@ -419,9 +419,8 @@ let buttonB = 0;
 
 let lastButtonBTime = 0;
 let colorIndex = 0;
-let colors = []; // Inicializo vacío para definir en setup
+let colors = [];
 
-// Override mouse variables
 let overrideMouseX = 0;
 let overrideMouseY = 0;
 let isDrawing = false;
@@ -433,7 +432,6 @@ function setup() {
   noCursor();
   noFill();
 
-  // Defino colores aquí que p5 ya está listo
   colors = [
     color(0),           // Negro
     color(255, 0, 0),   // Rojo
@@ -452,7 +450,6 @@ function setup() {
 
   setupGIF();
 
-  // Crear botón para conectar
   connectButton = createButton('Conectar al micro:bit');
   connectButton.position(10, 10);
   connectButton.mousePressed(connectToMicrobit);
@@ -501,7 +498,6 @@ function processSerial(data) {
       buttonA = parseInt(parts[2]);
       let newButtonB = parseInt(parts[3]);
 
-      // Detectar doble clic en botón B
       if (newButtonB === 1 && buttonB === 0) {
         let now = millis();
         if (now - lastButtonBTime < 400) {
@@ -518,8 +514,6 @@ function processSerial(data) {
   }
   serialBuffer = lines.join("\n");
 }
-
-// Variables auxiliares para dibujo (debes definirlas si no las tienes)
 
 let pmouseX = 0;
 let pmouseY = 0;
@@ -599,6 +593,7 @@ function draw() {
 ## Video
 
 [Video demostratativo](URL)
+
 
 
 
