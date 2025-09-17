@@ -58,11 +58,16 @@ Los estados del boton A y B se generan en p5 comparando el estado actual de los 
 
 Porque cuando seleccionamos texto en la aplicacion SerialTerminal, los datos se ven como números separados por comas y esto se ve asi porque el microbit esta enviando los datos como ASCII (Texto plano), donde cada numero y coma se codifican en caracteres que se pueden leer facil como si fuera un mensaje de texto.
 
+<img width="990" height="252" alt="image" src="https://github.com/user-attachments/assets/56201149-b32f-4008-bcd8-bc5f4823b493" />
+
+
 ### Captura el resultado del experimento anterior. Lo que ves ¿Cómo está relacionado con esta línea de código?
 ```cpp
 data = struct.pack('>2h2B', xValue, yValue, int(aState), int(bState))
 ```
 Al seleccionar todo en Hex, se ven nuemeros hecadecimales como (FF 85 01 C8 00 01), esto esta relacionado al codigo por el struct.pack, que convierte los valores en binario y la aplicacion SerialTerminal muestra esos bytes en Hexadecimal. 
+
+<img width="989" height="248" alt="image" src="https://github.com/user-attachments/assets/c2993663-80a3-4a93-852d-accb4161ec82" />
 
 ###  ¿Qué ventajas y desventajas ves en usar un formato binario en lugar de texto en ASCII?
 #### Ventajas
@@ -373,6 +378,7 @@ function keyPressed() {
 }
 
 ```
+
 
 
 
