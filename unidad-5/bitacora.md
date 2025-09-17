@@ -122,7 +122,7 @@ Por esto, el binario es mejor cuando se necesita eficiencia y rapidez, mientras 
 
 ### ACTIVIDAD 04
 
-```js
+```.js
 'use strict';
 
 let port;
@@ -373,6 +373,7 @@ function keyPressed() {
 }
 
 ```
+
 
 
 
