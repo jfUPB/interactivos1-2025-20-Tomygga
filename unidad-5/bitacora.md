@@ -46,9 +46,87 @@ El codigo lee los datos enviados por el microbit a traves del puerto serial usan
 
 Los estados del boton A y B se generan en p5 comparando el estado actual de los botones con su estado anterior. Donde el microbit manda en serie los valores de los botones A y B (true o false) y p5 guarda esos valores e microBitAState y microBitBstate para compararlos en updateButtonStates donde A pressed ocurre cuando antes estaban false y ahora llega a true, y el B released ocurre cuand antes estaba en true y ahora llega a false. Una vez detectada la transicion, se ejecuta el bloque correspondiente y se muestra un mensaje en consola donde indica si los botones estan presionados o liberados. Es decir, los eventos se generan por transicion de estado, no es suficiente con que el microbit diga que A esta en true, sino que el p5 detecte el cambio de la fase.
 
-### 
+### Capturas de pantalla de los algunos dibujos que hayas hecho con el sketch.
+
+<img width="876" height="808" alt="20250917_141813" src="https://github.com/user-attachments/assets/bc91797e-26c3-4342-a123-557c510ce642" />
+<img width="876" height="808" alt="20250917_141927" src="https://github.com/user-attachments/assets/6c31dfee-01cd-4a78-b80b-9447e89b8a6e" />
+<img width="876" height="808" alt="20250917_142026" src="https://github.com/user-attachments/assets/89ff21a2-3fcb-433f-8af3-fdee235f7e7b" />
 
 ## Actividad 02
+
+### Captura el resultado del experimento anterior. ¿Por qué se ve este resultado?
+
+Porque cuando seleccionamos texto en la aplicacion SerialTerminal, los datos se ven como números separados por comas y esto se ve asi porque el microbit esta enviando los datos como ASCII (Texto plano), donde cada numero y coma se codifican en caracteres que se pueden leer facil como si fuera un mensaje de texto.
+
+### Captura el resultado del experimento anterior. Lo que ves ¿Cómo está relacionado con esta línea de código?
+```cpp
+data = struct.pack('>2h2B', xValue, yValue, int(aState), int(bState))
+```
+Al seleccionar todo en Hex, se ven nuemeros hecadecimales como (FF 85 01 C8 00 01), esto esta relacionado al codigo por el struct.pack, que convierte los valores en binario y la aplicacion SerialTerminal muestra esos bytes en Hexadecimal. 
+
+###  ¿Qué ventajas y desventajas ves en usar un formato binario en lugar de texto en ASCII?
+#### Ventajas
+- Ocupa menos espacio y se envian menos bytes
+- Es mas rapido y eficiente para la comunicacion en el programa
+- Es mas facil de procesar con programas como p5 porque no hay que convertir de texto a numero.
+
+#### Desventajas
+
+- Es mas dificil de leer por una persona normal
+- Si se quiere revisar los datos a simple vista, no se entienden porque aparecen coo simbolos raros Hex
+
+### Cuántos bytes se están enviando por mensaje? ¿Cómo se relaciona esto con el formato '>2h2B'? ¿Qué significa cada uno de los bytes?
+
+El >2h2B es la parte del codigo que significa:
+
+- 2h son dos enteros cortos, osea dos bytes cada uno
+- 2B son dos enteros de un byte cada uno, osea son dos bytes en total y seis bytes por mensaje
+
+Donde los bytes significa tienen diferente significado, donde se envian seis bytes por cada mensaje:
+
+- dos bytes -> xValue
+- dos bytes -> yValue
+- un byte -> estado del boton A
+- un byte -> estado del boton B
+
+Estos bytes representan la informacion compactada. Cuando el numero es negativo, se usa complemento a dos, es decir se representan los numeros enteros negativos en binario.
+
+### Recuerda de la unidad anterior que es posible enviar números positivos y negativos para los valores de xValue y yValue. ¿Cómo se verían los números negativos en el formato '>2h2B'?
+
+Digamos que xValue es -123, en binario no se envia el signo como tal, sino que se representa con complemento a dos en dos bytes. Entonces en Hex se veria algo como FF 85. Esto significa que aunque en ASCII se veria como -123, en binario se ve un valor que esta modificado de otra manera, pero que al decodificarlo da el numero negativo correcto.
+
+### ¿Qué diferencias ves entre los datos en ASCII y en binario? ¿Qué ventajas y desventajas ves en cada formato?
+
+El ASCII se ve como un texto normal o claro (-123) mientras que en binario se ven como bytes en Hex (FF 85), aunque no tengan una diferencia mas que yo vea, estas serian las desventajas y ventajas:
+
+#### Ventajas del binario
+
+- Mas rapido de enviar
+- Mas eficiente para el PC
+
+#### Desventaja del binario
+- Es muy complejo de leer.
+
+#### Ventajas del ASCII
+- Es mas facil de leer y entender
+- Es mas util para hacer pruebas rapidas
+
+#### Desventajas del ASCII
+
+- Ocupa mas espacio
+- Es mas lento porque envia mas caracteres
+
+Por esto, el binario es mejor cuando se necesita eficiencia y rapidez, mientras que el ASCII es mejor cuando se quieren leer datos mas faciles para hacer pruebas.
+
+### ACTIVIDAD 03
+
+
+
+
+
+
+
+
 
 
 
