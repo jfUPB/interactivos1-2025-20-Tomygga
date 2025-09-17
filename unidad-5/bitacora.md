@@ -127,6 +127,354 @@ Por esto, el binario es mejor cuando se necesita eficiencia y rapidez, mientras 
 
 ### ACTIVIDAD 04
 
+### Construccion de la aplicacion
+Este codigo es el de la aplicacion de la unidad pasada
+```.js
+'use strict';
+
+let port;
+let connectBtn;
+let connectionInitialized = false;
+let microBitConnected = false;
+
+const STATES = {
+  WAIT_MICROBIT_CONNECTION: "WAIT_MICROBIT_CONNECTION",
+  RUNNING: "RUNNING",
+};
+let appState = STATES.WAIT_MICROBIT_CONNECTION;
+
+let microBitX = 0;
+let microBitY = 0;
+let microBitAState = false;
+let microBitBState = false;
+let prevmicroBitAState = false;
+let prevmicroBitBState = false;
+
+let lastBPressTime = 0;
+let bPressInterval = 400; 
+let bPressCount = 0;
+
+let canvasElement;
+let img;
+let lineWidth = 3;
+let lineColor;
+let mv = true, mh = true, md1 = true, md2 = true;
+let penCount = 1;
+let showAxes = true;
+
+let smoothX = 0;
+let smoothY = 0;
+let pmouseX = 0;
+let pmouseY = 0;
+let smoothing = 0.2;
+
+function setup() {
+  canvasElement = createCanvas(800, 800);
+  noCursor();
+  noFill();
+  lineColor = color(0);
+
+  img = createGraphics(width, height);
+  img.pixelDensity(1);
+
+  port = createSerial();
+  connectBtn = createButton("Connect to micro:bit");
+  connectBtn.position(0, 0);
+  connectBtn.mousePressed(connectBtnClick);
+}
+
+function connectBtnClick() {
+  if (!port.opened()) {
+    port.open("MicroPython", 115200);
+    connectionInitialized = false;
+  } else {
+    port.close();
+  }
+}
+
+function updateButtonStates(newAState, newBState) {
+  if (newAState && !prevmicroBitAState) {
+    print("A pressed → start drawing");
+  }
+
+  if (newBState && !prevmicroBitBState) {
+    let currentTime = millis();
+    if (currentTime - lastBPressTime < bPressInterval) {
+      bPressCount++;
+    } else {
+      bPressCount = 1;
+    }
+    lastBPressTime = currentTime;
+
+    if (bPressCount === 2) {
+      img.clear();
+      background(255);
+      print("B double pressed → clear screen");
+      bPressCount = 0;
+    } else {
+      let colors = [
+        color(0),
+        color(15, 233, 118),
+        color(245, 95, 80),
+        color(65, 105, 185),
+        color(255, 231, 108),
+        color(255),
+      ];
+      lineColor = colors[int(random(colors.length))];
+      print("B pressed → change color");
+    }
+  }
+
+  prevmicroBitAState = newAState;
+  prevmicroBitBState = newBState;
+}
+
+function draw() {
+  if (!port.opened()) {
+    connectBtn.html("Connect to micro:bit");
+    microBitConnected = false;
+  } else {
+    microBitConnected = true;
+    connectBtn.html("Disconnect");
+
+    if (port.opened() && !connectionInitialized) {
+      port.clear();
+      connectionInitialized = true;
+    }
+
+    if (port.availableBytes() > 0) {
+      let data = port.readUntil("\n");
+      if (data) {
+        data = data.trim();
+        let values = data.split(",");
+        if (values.length == 4) {
+          microBitX = int(values[0]) + width / 2;
+          microBitY = int(values[1]) + height / 2;
+          microBitAState = values[2].toLowerCase() === "true";
+          microBitBState = values[3].toLowerCase() === "true";
+          updateButtonStates(microBitAState, microBitBState);
+        }
+      }
+    }
+  }
+
+  smoothX = lerp(smoothX, microBitX, smoothing);
+  smoothY = lerp(smoothY, microBitY, smoothing);
+
+  switch (appState) {
+    case STATES.WAIT_MICROBIT_CONNECTION:
+      if (microBitConnected) {
+        print("Microbit ready to draw");
+        appState = STATES.RUNNING;
+      }
+      break;
+
+    case STATES.RUNNING:
+      if (!microBitConnected) {
+        print("Waiting microbit connection");
+        appState = STATES.WAIT_MICROBIT_CONNECTION;
+      }
+
+      background(255);
+      image(img, 0, 0);
+
+      img.strokeWeight(lineWidth);
+      img.stroke(lineColor);
+
+      if (microBitAState) {
+        let w = width / penCount;
+        let h = height / penCount;
+        let x = smoothX % w;
+        let y = smoothY % h;
+        let px = x - (smoothX - pmouseX);
+        let py = y - (smoothY - pmouseY);
+
+        for (let i = 0; i < penCount; i++) {
+          for (let j = 0; j < penCount; j++) {
+            let ox = i * w;
+            let oy = j * h;
+
+            img.line(x + ox, y + oy, px + ox, py + oy);
+            if (mh || (md2 && md1 && mv))
+              img.line(w - x + ox, y + oy, w - px + ox, py + oy);
+            if (mv || (md2 && md1 && mh))
+              img.line(x + ox, h - y + oy, px + ox, h - py + oy);
+            if ((mv && mh) || (md2 && md1))
+              img.line(w - x + ox, h - y + oy, w - px + ox, h - py + oy);
+
+            if (md1 || (md2 && mv && mh))
+              img.line(y + ox, x + oy, py + ox, px + oy);
+            if ((md1 && mh) || (md2 && mv))
+              img.line(y + ox, w - x + oy, py + ox, w - px + oy);
+            if ((md1 && mv) || (md2 && mh))
+              img.line(h - y + ox, x + oy, h - py + ox, px + oy);
+            if ((md1 && mv && mh) || md2)
+              img.line(h - y + ox, w - x + oy, h - py + ox, w - px + oy);
+          }
+        }
+      }
+
+      if (showAxes) {
+        let w = width / penCount;
+        let h = height / penCount;
+
+        for (let i = 0; i < penCount; i++) {
+          for (let j = 0; j < penCount; j++) {
+            let x = i * w;
+            let y = j * h;
+
+            stroke(0, 50);
+            strokeWeight(1);
+            if (mh) line(x + w / 2, y, x + w / 2, y + h);
+            if (mv) line(x, y + h / 2, x + w, y + h / 2);
+            if (md1) line(x, y, x + w, y + h);
+            if (md2) line(x + w, y, x, y + h);
+
+            stroke(15, 233, 118, 50);
+            strokeWeight(1);
+            rect(i * w, j * h, w - 1, h - 1);
+          }
+        }
+
+        fill(lineColor);
+        noStroke();
+        ellipse(smoothX, smoothY, lineWidth + 2, lineWidth + 2);
+        stroke(0, 50);
+        noFill();
+        ellipse(smoothX, smoothY, lineWidth + 1, lineWidth + 1);
+      }
+
+      pmouseX = smoothX;
+      pmouseY = smoothY;
+  }
+}
+
+function keyPressed() {
+  if (keyCode == RIGHT_ARROW) penCount++;
+  if (keyCode == LEFT_ARROW) penCount = max(1, penCount - 1);
+
+  if (keyCode == UP_ARROW) lineWidth++;
+  if (keyCode == DOWN_ARROW) lineWidth = max(1, lineWidth - 1);
+
+  if (key == 'd' || key == 'D') showAxes = !showAxes;
+}
+```
+Como tal, hay que modificar la aplicacion para que soporte el protocolo de datos binarios. El funcionamiento del programa tiene que ser el mismo, que dibuje como si tuviera 4 espejos, y como estamos en esta parte de datos, lo que tenemos que cambiar es esta parte:
+
+```.js
+let data = port.readUntil("\n");
+if (data) {
+  data = data.trim();
+  let values = data.split(",");
+  if (values.length == 4) {
+    ...
+  }
+}
+```
+Esta es la que se encarga de los datos por asi decirlo, pero esta en texto ASCII, asi que tenemos que hacerle el cambio para que funcione con los datos binarios. Asi que, cogemos el codigo de microbit python que esta para hacer ese cambio en esta unidad y toca cambiar esta parte para que funcione por binarios, y tambien que se vea mas fluido que el programa anterior:
+
+```.js
+from microbit import *
+import struct
+
+uart.init(115200)
+display.set_pixel(0, 0, 9)
+
+while True:
+    xValue = accelerometer.get_x()
+    yValue = accelerometer.get_y()
+    aState = button_a.is_pressed()
+    bState = button_b.is_pressed()
+    data = struct.pack('>2h2B', xValue, yValue, int(aState), int(bState))
+    checksum = sum(data) % 256
+    packet = b'\xAA' + data + bytes([checksum])
+    uart.write(packet)
+    sleep(100)
+```
+
+ACTUALIZACION: ya con el codigo final hecho, se modifico el draw para que quedara asi y funcione con binarios:
+
+```.js
+function draw() {
+  if (!port.opened()) {
+    connectBtn.html("Connect to micro:bit");
+    microBitConnected = false;
+  } else {
+    microBitConnected = true;
+    connectBtn.html("Disconnect");
+
+    if (port.opened() && !connectionInitialized) {
+      port.clear();
+      connectionInitialized = true;
+    }
+
+    while (port.availableBytes() >= 8) {   // esperar al menos 8 bytes
+      let buffer = port.readBytes(8);
+
+      if (buffer && buffer.length === 8) {
+        if (buffer[0] === 0xAA) {
+          let dataBytes = buffer.slice(1, 7);
+          let checksum = buffer[7];
+
+          let calcSum = dataBytes.reduce((a, b) => a + b, 0) % 256;
+          if (calcSum === checksum) {
+            let xRaw = (dataBytes[0] << 8) | (dataBytes[1] & 0xFF);
+            if (xRaw & 0x8000) xRaw = xRaw - 0x10000; // signo
+
+            let yRaw = (dataBytes[2] << 8) | (dataBytes[3] & 0xFF);
+            if (yRaw & 0x8000) yRaw = yRaw - 0x10000; // signo
+
+            let aState = dataBytes[4] !== 0;
+            let bState = dataBytes[5] !== 0;
+
+            microBitX = int(xRaw) + width / 2;
+            microBitY = int(yRaw) + height / 2;
+            microBitAState = aState;
+            microBitBState = bState;
+
+            updateButtonStates(microBitAState, microBitBState);
+          }
+        }
+      }
+    }
+  }
+
+  // resto del draw queda igual 
+  smoothX = lerp(smoothX, microBitX, smoothing);
+  smoothY = lerp(smoothY, microBitY, smoothing);
+}
+```
+ya en parte de la construcción esto es todo.
+
+### PRUEBAS INTERMEDIAS
+
+La primera prueba es obviamente ver si el microbit y el codigo que se dio en el apply, funcionen, el cual fue efectivo jsdjsadja.
+
+<img width="1114" height="946" alt="image" src="https://github.com/user-attachments/assets/4e3151af-88fb-4c96-aeb0-d3da57a5c63b" />
+
+Si no lo hacia no era posible avanzar en el codigo. La siguiente prueba fue para ver que pasaba si ejecutaba el programa cuando quitaba la parte de la data que no nos sirve en este caso.
+
+<img width="1919" height="945" alt="image" src="https://github.com/user-attachments/assets/68a3fb3a-611f-4890-bb4b-e68d2e15d87a" />
+
+Al quitarla, el codigo seguia funcionando a casi toda su totalidad, permitia la conexion del microbit y el canvas con su espejo, la cosa es que al no estar enviando nada no puede dibujar, asi que hay que ponerse en la de empezar a codificar las cosas de los datos binarios.
+
+<img width="1724" height="799" alt="image" src="https://github.com/user-attachments/assets/4bba8f2e-b0d1-4451-a1e2-3a735c649b7d" /> 
+ahi puse la parte de la cabecera y su validacion, el codigo todavia no dibuja. Pero ya haciendo el checksum y haciendo el mapeo para que aparezca el cursor dibuje, acabe y de verdad dibuja con mas fluidez que el ejercicio de la unidad anterior
+
+<img width="1793" height="762" alt="image" src="https://github.com/user-attachments/assets/d261f7c5-5299-47c1-8be0-dd9071945f16" />
+
+Y ya ahi acabe el codigo de la unidad pasada con lo que vimos en esta unidad, de igual manera el microbit funciona como cursor y con A se dibujo, con B se cambia de color y si se presiona dos veces se borra, de resto, no hay ps nada mas que hacer no es tan largo.
+
+### ERRORES
+La verdad es que al ser un codigo tan corto no tuve casi errores, solo tuve uno y fue bastante sencillo de corregir, era este:
+
+<img width="883" height="801" alt="image" src="https://github.com/user-attachments/assets/afb939bc-a84a-45c1-9031-50a138ccae81" />
+
+Simplemente se corregia cambiando esta parte de 0x100 a 0x10000 en esta parte y ya, un fallo tonto mio.
+
+De resto, el codigo al ser tan corto no me dio errores, de hecho lo hice bastante rapido y ya pues, asi quedo
+
+### CODIGO FINAL
 ```.js
 'use strict';
 
@@ -240,20 +588,16 @@ function draw() {
       connectionInitialized = true;
     }
 
-    // --- nuevo bloque para leer paquetes binarios ---
     while (port.availableBytes() >= 8) {
       let buffer = port.readBytes(8);
 
       if (buffer && buffer.length === 8) {
-        // Validar cabecera
         if (buffer[0] === 0xAA) {
           let dataBytes = buffer.slice(1, 7);
           let checksum = buffer[7];
 
-          // Calcular checksum
           let calcSum = dataBytes.reduce((a, b) => a + b, 0) % 256;
           if (calcSum === checksum) {
-            // Decodificar enteros 16 bits con signo (big-endian)
             let xRaw = (dataBytes[0] << 8) | (dataBytes[1] & 0xFF);
             if (xRaw & 0x8000) xRaw = xRaw - 0x10000;
 
@@ -263,7 +607,6 @@ function draw() {
             let aState = dataBytes[4] !== 0;
             let bState = dataBytes[5] !== 0;
 
-            // Mapear valores
             microBitX = int(xRaw) + width / 2;
             microBitY = int(yRaw) + height / 2;
             microBitAState = aState;
@@ -376,8 +719,8 @@ function keyPressed() {
 
   if (key == 'd' || key == 'D') showAxes = !showAxes;
 }
-
 ```
+
 
 
 
