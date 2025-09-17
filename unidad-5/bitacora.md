@@ -40,6 +40,21 @@ if (port.availableBytes() > 0) {
 }
 
 ```
+El codigo lee los datos enviados por el microbit a traves del puerto serial usando el port.readUntil, lo que devuelve una linea completa como "23, -15, true, false", despues de esto se limpia con trim y se separa en un arreglo con split, obteniendo de este cuatro valores X, Y y los estados del boton A y B. Los dos primeros se convierten en enteros y se les suma el windowWidth y el windowHeight para que el punto inicial o central del microbit (0,0) quede en el centro del lienzo del p5, logrando que los movimientos que se hagan se traduzcan a coordenadas en pantalla. Los valores del boton A y B son booleanos y se pasan a la funcion updatebuttonstates, que se encarga de generar las acciones correspondientes al detectar una pulsacion(true) o liberacion(false).
+
+### ¿Cómo se generan los eventos A pressed y B released que se generan en p5.js a partir de los datos que envía el micro:bit?
+
+Los estados del boton A y B se generan en p5 comparando el estado actual de los botones con su estado anterior. Donde el microbit manda en serie los valores de los botones A y B (true o false) y p5 guarda esos valores e microBitAState y microBitBstate para compararlos en updateButtonStates donde A pressed ocurre cuando antes estaban false y ahora llega a true, y el B released ocurre cuand antes estaba en true y ahora llega a false. Una vez detectada la transicion, se ejecuta el bloque correspondiente y se muestra un mensaje en consola donde indica si los botones estan presionados o liberados. Es decir, los eventos se generan por transicion de estado, no es suficiente con que el microbit diga que A esta en true, sino que el p5 detecte el cambio de la fase.
+
+### 
+
+## Actividad 02
+
+
+
+
+
+
 
 
 
