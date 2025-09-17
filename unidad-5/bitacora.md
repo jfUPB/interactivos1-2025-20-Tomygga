@@ -720,6 +720,43 @@ function keyPressed() {
   if (key == 'd' || key == 'D') showAxes = !showAxes;
 }
 ```
+### Experimentos o resultados de la aplicación.
+
+Quite la parte del mapeo y efectivamente no dibuja, esto es lo que genera el cursor y permite el dibujo
+
+<img width="1917" height="911" alt="image" src="https://github.com/user-attachments/assets/8a16fbe8-ae48-40f9-b7c0-b6f11739df30" />
+
+Quitando la parte larga del calcsum, no aparece el canvas y tampoco dibuja porque genera error de ejecucion, ya que el mapeo requiere el xRaw y yRaw que se define en esta parte
+
+<img width="1914" height="934" alt="image" src="https://github.com/user-attachments/assets/956f0d20-82e9-4b61-9a7d-252a0cdcfa83" />
+
+Quitando la parte de los de letaState y letBstate, el codigo si se ejecuta y el canvas tambien pero tampoco dibuja, esto porque no recibe los databytes ni el state. por ende, sin tan solo el aState no puede dibujar
+
+<img width="1876" height="848" alt="image" src="https://github.com/user-attachments/assets/48aa1da0-b62c-497c-b950-fd52ca82b355" />
+
+Y ya codigo final y su resultado mil veces mas fluido pero esto en video:
+
+https://github.com/user-attachments/assets/865fd4d4-e3f5-47f5-8e21-d936c143d9b9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
