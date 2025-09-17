@@ -120,6 +120,261 @@ Por esto, el binario es mejor cuando se necesita eficiencia y rapidez, mientras 
 
 ### ACTIVIDAD 03
 
+### ACTIVIDAD 04
+
+```js
+'use strict';
+
+let port;
+let connectBtn;
+let connectionInitialized = false;
+let microBitConnected = false;
+
+const STATES = {
+  WAIT_MICROBIT_CONNECTION: "WAIT_MICROBIT_CONNECTION",
+  RUNNING: "RUNNING",
+};
+let appState = STATES.WAIT_MICROBIT_CONNECTION;
+
+let microBitX = 0;
+let microBitY = 0;
+let microBitAState = false;
+let microBitBState = false;
+let prevmicroBitAState = false;
+let prevmicroBitBState = false;
+
+let lastBPressTime = 0;
+let bPressInterval = 400;
+let bPressCount = 0;
+
+let canvasElement;
+let img;
+let lineWidth = 3;
+let lineColor;
+let mv = true, mh = true, md1 = true, md2 = true;
+let penCount = 1;
+let showAxes = true;
+
+let smoothX = 0;
+let smoothY = 0;
+let pmouseX = 0;
+let pmouseY = 0;
+let smoothing = 0.2;
+
+function setup() {
+  canvasElement = createCanvas(800, 800);
+  noCursor();
+  noFill();
+  lineColor = color(0);
+
+  img = createGraphics(width, height);
+  img.pixelDensity(1);
+
+  port = createSerial();
+  connectBtn = createButton("Connect to micro:bit");
+  connectBtn.position(0, 0);
+  connectBtn.mousePressed(connectBtnClick);
+}
+
+function connectBtnClick() {
+  if (!port.opened()) {
+    port.open("MicroPython", 115200);
+    connectionInitialized = false;
+  } else {
+    port.close();
+  }
+}
+
+function updateButtonStates(newAState, newBState) {
+  if (newAState && !prevmicroBitAState) {
+    print("A pressed → start drawing");
+  }
+
+  if (newBState && !prevmicroBitBState) {
+    let currentTime = millis();
+    if (currentTime - lastBPressTime < bPressInterval) {
+      bPressCount++;
+    } else {
+      bPressCount = 1;
+    }
+    lastBPressTime = currentTime;
+
+    if (bPressCount === 2) {
+      img.clear();
+      background(255);
+      print("B double pressed → clear screen");
+      bPressCount = 0;
+    } else {
+      let colors = [
+        color(0),
+        color(15, 233, 118),
+        color(245, 95, 80),
+        color(65, 105, 185),
+        color(255, 231, 108),
+        color(255),
+      ];
+      lineColor = colors[int(random(colors.length))];
+      print("B pressed → change color");
+    }
+  }
+
+  prevmicroBitAState = newAState;
+  prevmicroBitBState = newBState;
+}
+
+function draw() {
+  if (!port.opened()) {
+    connectBtn.html("Connect to micro:bit");
+    microBitConnected = false;
+  } else {
+    microBitConnected = true;
+    connectBtn.html("Disconnect");
+
+    if (port.opened() && !connectionInitialized) {
+      port.clear();
+      connectionInitialized = true;
+    }
+
+    // --- nuevo bloque para leer paquetes binarios ---
+    while (port.availableBytes() >= 8) {
+      let buffer = port.readBytes(8);
+
+      if (buffer && buffer.length === 8) {
+        // Validar cabecera
+        if (buffer[0] === 0xAA) {
+          let dataBytes = buffer.slice(1, 7);
+          let checksum = buffer[7];
+
+          // Calcular checksum
+          let calcSum = dataBytes.reduce((a, b) => a + b, 0) % 256;
+          if (calcSum === checksum) {
+            // Decodificar enteros 16 bits con signo (big-endian)
+            let xRaw = (dataBytes[0] << 8) | (dataBytes[1] & 0xFF);
+            if (xRaw & 0x8000) xRaw = xRaw - 0x10000;
+
+            let yRaw = (dataBytes[2] << 8) | (dataBytes[3] & 0xFF);
+            if (yRaw & 0x8000) yRaw = yRaw - 0x10000;
+
+            let aState = dataBytes[4] !== 0;
+            let bState = dataBytes[5] !== 0;
+
+            // Mapear valores
+            microBitX = int(xRaw) + width / 2;
+            microBitY = int(yRaw) + height / 2;
+            microBitAState = aState;
+            microBitBState = bState;
+
+            updateButtonStates(microBitAState, microBitBState);
+          }
+        }
+      }
+    }
+  }
+
+  smoothX = lerp(smoothX, microBitX, smoothing);
+  smoothY = lerp(smoothY, microBitY, smoothing);
+
+  switch (appState) {
+    case STATES.WAIT_MICROBIT_CONNECTION:
+      if (microBitConnected) {
+        print("Microbit ready to draw");
+        appState = STATES.RUNNING;
+      }
+      break;
+
+    case STATES.RUNNING:
+      if (!microBitConnected) {
+        print("Waiting microbit connection");
+        appState = STATES.WAIT_MICROBIT_CONNECTION;
+      }
+
+      background(255);
+      image(img, 0, 0);
+
+      img.strokeWeight(lineWidth);
+      img.stroke(lineColor);
+
+      if (microBitAState) {
+        let w = width / penCount;
+        let h = height / penCount;
+        let x = smoothX % w;
+        let y = smoothY % h;
+        let px = x - (smoothX - pmouseX);
+        let py = y - (smoothY - pmouseY);
+
+        for (let i = 0; i < penCount; i++) {
+          for (let j = 0; j < penCount; j++) {
+            let ox = i * w;
+            let oy = j * h;
+
+            img.line(x + ox, y + oy, px + ox, py + oy);
+            if (mh || (md2 && md1 && mv))
+              img.line(w - x + ox, y + oy, w - px + ox, py + oy);
+            if (mv || (md2 && md1 && mh))
+              img.line(x + ox, h - y + oy, px + ox, h - py + oy);
+            if ((mv && mh) || (md2 && md1))
+              img.line(w - x + ox, h - y + oy, w - px + ox, h - py + oy);
+
+            if (md1 || (md2 && mv && mh))
+              img.line(y + ox, x + oy, py + ox, px + oy);
+            if ((md1 && mh) || (md2 && mv))
+              img.line(y + ox, w - x + oy, py + ox, w - px + oy);
+            if ((md1 && mv) || (md2 && mh))
+              img.line(h - y + ox, x + oy, h - py + ox, px + oy);
+            if ((md1 && mv && mh) || md2)
+              img.line(h - y + ox, w - x + oy, h - py + ox, w - px + oy);
+          }
+        }
+      }
+
+      if (showAxes) {
+        let w = width / penCount;
+        let h = height / penCount;
+
+        for (let i = 0; i < penCount; i++) {
+          for (let j = 0; j < penCount; j++) {
+            let x = i * w;
+            let y = j * h;
+
+            stroke(0, 50);
+            strokeWeight(1);
+            if (mh) line(x + w / 2, y, x + w / 2, y + h);
+            if (mv) line(x, y + h / 2, x + w, y + h / 2);
+            if (md1) line(x, y, x + w, y + h);
+            if (md2) line(x + w, y, x, y + h);
+
+            stroke(15, 233, 118, 50);
+            strokeWeight(1);
+            rect(i * w, j * h, w - 1, h - 1);
+          }
+        }
+
+        fill(lineColor);
+        noStroke();
+        ellipse(smoothX, smoothY, lineWidth + 2, lineWidth + 2);
+        stroke(0, 50);
+        noFill();
+        ellipse(smoothX, smoothY, lineWidth + 1, lineWidth + 1);
+      }
+
+      pmouseX = smoothX;
+      pmouseY = smoothY;
+  }
+}
+
+function keyPressed() {
+  if (keyCode == RIGHT_ARROW) penCount++;
+  if (keyCode == LEFT_ARROW) penCount = max(1, penCount - 1);
+
+  if (keyCode == UP_ARROW) lineWidth++;
+  if (keyCode == DOWN_ARROW) lineWidth = max(1, lineWidth - 1);
+
+  if (key == 'd' || key == 'D') showAxes = !showAxes;
+}
+
+```
+
+
 
 
 
