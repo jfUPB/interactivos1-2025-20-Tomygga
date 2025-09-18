@@ -125,7 +125,77 @@ Por esto, el binario es mejor cuando se necesita eficiencia y rapidez, mientras 
 
 ### ACTIVIDAD 03
 
-### ACTIVIDAD 04
+####  Explica por qué en la unidad anterior teníamos que enviar la información delimitada y además marcada con un salto de línea y ahora no es necesario.
+
+En la unidad anterior era necesario esto porque los datos se leen como texto y cada paquete llega en formato de cadena como esto:
+
+```.js
+"500,524,true,false\n"
+```
+El \n indica el fin del paquete, asi que el receptor sabe que ya termino una lectura completo antes de hacer el split, y si no hubiera un salto de linea, el programa no sabria donde acaba un paquete y donde empieza el siguiente.
+
+En esta unidad ya no hace falta porque los datos se envian en binario de tamaño fijo (6 bytes), entonces el receptor siempre sabe que cada seis bytes es un paquete completo.
+
+###  Compara el código de la unidad anterior relacionado con la recepción de los datos seriales que ves ahora. ¿Qué cambios observas?
+
+En la unidad anterior usabamos texto con delimitador, donde se usaban funciones como readUntil("\n") y los datos llegaban como un string que respondia en cadena, despues de esto se usaba el split, mejor aca esta la linea:
+
+```.js
+let values = data.split(",");
+microBitX = int(values[0]) + width / 2;
+microBitY = int(values[1]) + height / 2;
+microBitAState = values[2].toLowerCase() === "true";
+microBitBState = values[3].toLowerCase() === "true";
+```
+En la unidad actual usamos un binario estructurado, donde se leen bytes crudos con port.readBytes y se usan los DataView y los GetUint para convertir los bytes a enteros y booleanos, aparte, al usar esta estructura binaria no necesitamos un delimitador porque el tamaño ya esta fijo.
+
+###  ¿Qué ves en la consola? ¿Por qué crees que se produce este error?
+
+No me dio el codigo entonces voy a usar el ejemplo de lo que te dio:
+
+```.js
+Connected to serial port
+A pressed
+microBitX: 500 microBitY: 524 microBitAState: true microBitBState: false
+
+Microbit ready to draw
+92 microBitX: 500 microBitY: 524 microBitAState: true microBitBState: false
+
+microBitX: 500 microBitY: 513 microBitAState: false microBitBState: false
+
+222 microBitX: 3073 microBitY: 1 microBitAState: false microBitBState: false
+```
+
+Entonces, aparecen valores extraños o directamente no se actualizan las variables, esto ocurre porque la comunicacion depende de que las lineas lleguen completas y en orden, el error se produce porque los bytes que llegan por serial no siempre son los mismos limites del paquete de datos esperado, esto causa que el codigo lea valores corruptos como por ejemplo el 3073 al interpretar el buffer.
+
+### Analiza el código, observa los cambios. Ejecuta y luego observa la consola. ¿Qué ves?
+
+Cuando se concecta el microbit aparece en la consola un mensjae que dice microbit ready to draw, despues llegan datos seriales validos desde el microbit, donde cada uno se decodifica y se ven lineas asi:
+
+```.js
+microBitX: 502 microBitY: 523 microBitAState: false microBitBState: false
+microBitX: 500 microBitY: 524 microBitAState: true microBitBState: false
+```
+
+Los valores cambian segun los sensores o botones del microbit, tambien aparecen los mensajes de los eventos del boton A y B que pues, simplemente dicen A pressed y B released. Para el final, lo que aparece es que si se desconecta el microbit mientras esta corriendo, aparece el mensaje Waiting microbit connection.
+
+### ¿Qué cambios tienen los programas y ¿Qué puedes observar en la consola del editor de p5.js?
+En el del microbit, principalmente los cambios que noto son que usamos struct.pack con el >2h2B y añadimos el checksum que conecta con el header fijo 0xAA, no noto mas cambios asi como extraños o curiosos.
+
+En p5, los cambios que veo es que se implementa un SerialBuffer para acumular los bytes, el codigo busca al header 0xAA antes de procesar un paqueta, validar el checksum y si no coincide lo descarta, la decodificacion con DataView para leer enteros de 16 bits como lo es microBit X y microbit Y u los estados de los botones, y ya no veo nada mas como raro
+
+En la consola lo que se ve el tipico mensaje de cuando conectamos (Microbit ready to draw), cuando presionamos el boton A y soltamos el boton B (A pressed, B released), cuando llega un paquete corrupto se ve este error (Checksum error in packet) y si desconectamos el microbit mientras la app se esta ejecutando aparece este mensaje (Waiting microbit connection)
+
+Asi se veria ps:
+```.js
+Microbit ready to draw
+A pressed
+B released
+Checksum error in packet
+Waiting microbit connection
+```
+
+## ACTIVIDAD 04
 
 ### Construccion de la aplicacion
 Este codigo es el de la aplicacion de la unidad pasada
@@ -737,6 +807,7 @@ Quitando la parte de los de letaState y letBstate, el codigo si se ejecuta y el 
 Y ya codigo final y su resultado mil veces mas fluido pero esto en video:
 
 https://github.com/user-attachments/assets/865fd4d4-e3f5-47f5-8e21-d936c143d9b9
+
 
 
 
