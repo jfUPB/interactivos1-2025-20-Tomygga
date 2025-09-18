@@ -123,9 +123,9 @@ El ASCII se ve como un texto normal o claro (-123) mientras que en binario se ve
 
 Por esto, el binario es mejor cuando se necesita eficiencia y rapidez, mientras que el ASCII es mejor cuando se quieren leer datos mas faciles para hacer pruebas.
 
-### ACTIVIDAD 03
+## ACTIVIDAD 03
 
-####  Explica por qué en la unidad anterior teníamos que enviar la información delimitada y además marcada con un salto de línea y ahora no es necesario.
+### Explica por qué en la unidad anterior teníamos que enviar la información delimitada y además marcada con un salto de línea y ahora no es necesario.
 
 En la unidad anterior era necesario esto porque los datos se leen como texto y cada paquete llega en formato de cadena como esto:
 
@@ -807,6 +807,7 @@ Quitando la parte de los de letaState y letBstate, el codigo si se ejecuta y el 
 Y ya codigo final y su resultado mil veces mas fluido pero esto en video:
 
 https://github.com/user-attachments/assets/865fd4d4-e3f5-47f5-8e21-d936c143d9b9
+
 
 
 
