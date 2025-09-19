@@ -4,6 +4,7 @@
 
 [Enlace a la aplicación a modificar](https://editor.p5js.org/generative-design/sketches/H1oflc9q6kV)
 
+
 Código a modificar:
 
 ``` js
@@ -208,9 +209,11 @@ function setupGIF() {
 
 [Enlace a la aplicación modificada](https://editor.p5js.org/Tomygga/sketches/LcyL3TWIK)
 
+
 Código modificado:
 
 ``` js
+
 // P_2_3_7_01
 //
 // Generative Gestaltung – Creative Coding im Web
@@ -484,19 +487,9 @@ function keyPressed() {
 
   if (key == 'd' || key == 'D') showAxes = !showAxes;
 }
-```
+
 
 ## Video
 
 [Video demostratativo](https://www.youtube.com/watch?v=gk_u7qZPJW4)
-
-
-
-
-
-
-
-
-
-
 
