@@ -808,6 +808,26 @@ Y ya codigo final y su resultado mil veces mas fluido pero esto en video:
 
 https://github.com/user-attachments/assets/865fd4d4-e3f5-47f5-8e21-d936c143d9b9
 
+## AUTOEVALUACION
+
+###  Profundidad de la Indagación: Excelente Excelente (5.0)
+
+Pues la justificacion es que respondi todas las preguntas. y en caso de no saber algo o porque ocurre esto me di a la tarea de investigar estos sucesos y le di una respuesta. LOGRADO
+
+###  Calidad de la Experimentación (4,4)
+
+Si me di a la tarea de experimentar, incluso me salio el error del checksum, y tambien respondi porque daban estos errores, pero no fueron experimentos asi tan creativos como para un cinco, en realidad fueron bastante sencillos.
+
+### Análisis y Reflexión (4,4)
+
+Si analize y reflexione en la mayoria de errores que tenia, pero no son reflexiones TAN PROFUNDAS como se pide pa sacar 5, entonces yo creo que asi esta bien.
+
+###  Apropiación y Articulación de Conceptos (4,4)
+
+La bitacora esta clara y completa, pero no es una maestria conceptual como dice en la rubrica, yo creo que esta bien asi :D.
+
+
+
 
 
 
