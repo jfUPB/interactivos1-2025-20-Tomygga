@@ -94,6 +94,47 @@ Donde el watch y esos numeros representan el codigo del video que estoy viendo. 
 
 #### DIFERENCIAS
 
+- El nivel de abstraccion, mientras que los protocolos trabajan con bytes; el http se monta sobre TCP/IP.
+- El formato de los datos, los protocolos tienen un formato mas facil (Textos simples o compactos), mientras que el http mezcla encabezados y datos binarios haciendolo un poco mas dificil.
+- A diferencia con la aplicacion del framing en los protocolos, en el http hay varios mecanismos como líneas de inicio, headers clave-valor, content-length, etc.
+- Los protocolos son mas para dispositivos, mientras que el http esta mas relacionado a escalar en internet, interoperar entre miles de clientes y servidores distintos, y soportar extensiones.
+
+#### ¿Por qué crees que HTTP necesita ser más complejo que un simple envío de bytes como hacías con el micro:bit?
+
+HTTP tiene que ser más complejo que solo mandar bytes como hacía con el micro:bit porque no es solo para conectar dos aparatos, sino para que muchísimos dispositivos diferentes en todo el mundo se entiendan entre sí. En el micro:bit me basta con mandar un número o un texto y ya, pero en Internet se necesita decir qué quiero pedir, de dónde, en qué formato, si necesito seguridad, y que además funcione igual sin importar si lo uso desde un celular, un computador o un servidor. Por eso HTTP tiene reglas más largas, con encabezados y códigos, para que todo quede claro y no haya errores al comunicarse.
+
+### ACTIVIDAD SOBRE LA PAGINA WEB SIMPLE
+
+#### ¿Qué parte crees que es HTML (ej. los campos de texto, el botón)?
+La que define la estructura basica de la pagina, Sin HTML no habría donde escribir ni un botón que pulsar y en el caso de un formulario de login, serían los campos de texto para escribir el nombre de usuario y la contraseña, el botón de "Iniciar sesión", los titulos o etiquetas que indican que debe ir en cada campo.
+
+#### ¿Qué parte es CSS (ej. el color del botón, el tipo de letra)?
+Se encarga de como se ve la pagina, puede darle color a los botones, cambiarle la tipografia, el tamaño, poner margenes, etc. En resumen permite que el formulario no solo funcione, sino que también sea mas atractivo y facil de usar.
+
+#### ¿Qué parte es JavaScript (ej. la comprobación de si escribiste algo antes de enviar, el mensaje de “contraseña incorrecta” que aparece sin recargar la página)?
+La logica y la interacción con el usuario, comprueba si los campos estan vacíos antes de enviar, valida que la contraseña tenga cierta cantidad de caracteres o que el correo tenga formato correcto. Tambien puede mostrar mensajes si el usuario se quivoca en algun dato y puede agregar mas funciones para tener una pagina mas completa.
+
+### Compara el bucle draw() de p5.js con este modelo de “esperar a que algo pase y reaccionar”.
+El bucle funciona como si fuera un reloj que no para, repite las instrucciones muchas veces por segundo. Asi, aunque nada cambie, el programa sigue dibujando la pantalla completa una y otra vez.
+
+En cambio, el modelo de esperar a que algo pase y reaccionar es diferente. Aqui el programa se queda quieto hasta que ocurre un evento, por ejemplo cuando el usuario da clic, mueve el mouse o escribe en el teclado. En ese momento se ejecuta el codigo que corresponde.
+
+#### ¿Qué ventajas crees que tiene el modelo basado en eventos para una interfaz de usuario web?
+- Ahorra recursos, ya que el navegador no gasta energia del procesador ni de la bateria dibujando cosas que no cambiaron.
+- Es mas rapido, porque solo se actualiza lo que de verdad necesita cambiar.
+- Es mas facil, ya que solo hay que escribir lo que debe ocurrir cuando el usuario hace una acción.
+
+#### ¿Sería eficiente tener un bucle draw() redibujando toda la página 60 veces por segundo si nada ha cambiado?
+Si tuviéramos un draw redibujando toda la página 60 veces por segundo sin que nada cambie, sería muy ineficiente ya que la computadora se cansaria rapido, gastaria bateria, y la página se pondría lenta. Por eso, para páginas web es mucho mejor usar el modelo de eventos que solo reacciona cuando algo pasa.
+
+### ¿Por qué crees que podría ser útil usar JavaScript tanto en el cliente (navegador) como en el servidor? ¿Se te ocurre alguna ventaja para los desarrolladores?
+Es mas util porque permite trabajar con un solo lenguaje en todo el proyecto, lo que hace más facil aprenderlo, mantener el código y evitar repetir funciones como validaciones. Aparte, los desarrolladores pueden aprovechar la gran cantidad de bibliotecas que hay por la web, y tambien pueden compartir partes del programa entre cliente y el servidor, ya no se me ocurre nada mas.
+
+### Resume con tus propias palabras la diferencia fundamental entre una comunicación HTTP tradicional y una comunicación usando WebSockets/Socket.IO. ¿En qué tipo de aplicaciones has visto o podrías imaginar que se usa esta comunicación en tiempo real?
+
+
+## ACTIVIDAD 03
+
 
 
 
