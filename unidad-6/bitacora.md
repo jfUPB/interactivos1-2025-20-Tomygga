@@ -211,6 +211,30 @@ sip
 #### ¿Qué aprendiste sobre la variable port y la función listen? Restaura el puerto a 3000.
 Que al cambiar el numero del port, este va a escuchar a este numero con el listen, osea, si aparece 3001 en el port, el localhost tiene que aparecer con el 3001 porque si no, no lleva a ningun lado.
 
+## ACTIVIDAD 04
+
+### EXPERIMENTO #1
+
+#### Abre la consola de desarrollador (F12).
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/da675eff-a681-4ac6-aee7-0ae719fb7b7a" />
+
+#### Refresca la página page2.html. Observa la consola del navegador. ¿Ves algún error relacionado con la conexión? ¿Qué indica?
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/87316741-6b9e-4bea-a4f8-dab7b3587d89" />
+
+Si hay un error, esto lo que indica es que al tener el server cerrado, no se puede acceder a esta pagina hasta que lo iniciemos
+
+<img width="520" height="177" alt="image" src="https://github.com/user-attachments/assets/4ea51eae-3de4-4710-bf04-95749155ea90" />
+
+#### Vuelve a iniciar el servidor y refresca la página. ¿Desaparecen los errores?
+sip
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/5818d47f-0cfc-4fb9-8922-eda240fee54c" />
+
+### EXPERIMENTO #2
+
+
+
+
+
 
 
 
