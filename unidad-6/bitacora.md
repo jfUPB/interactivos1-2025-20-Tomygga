@@ -135,6 +135,87 @@ Es mas util porque permite trabajar con un solo lenguaje en todo el proyecto, lo
 
 ## ACTIVIDAD 03
 
+### EXPERIMENTO #1
+
+Aca se cambio la primera ruta en el codigo de server.js de page1 a pagina_uno
+
+#### Intenta acceder a http://localhost:3000/page1. ¿Funciona?
+
+No no funciona, debido a que aunque en todo el codigo aparezca page1, al modificarlo le estamos pidiendo que abra esta pagina con pagina_uno.
+
+<img width="1915" height="601" alt="image" src="https://github.com/user-attachments/assets/c076a141-1aec-41a2-980a-19c4455e6805" />
+
+#### Ahora intenta acceder a http://localhost:3000/pagina_uno. ¿Funciona?
+
+Esta si funciona por la modificación que hicimos.
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/7b0ca750-199c-4322-8a5e-a3845a0500b1" />
+
+#### ¿Qué te dice esto sobre cómo el servidor asocia URLs con respuestas? 
+
+En el codigo hay un req y un res, yo entiendo que son requerimiento y respuesta. Por eso cuando cambiamos lo del app.get a pagina_uno
+
+```js
+app.get('/pagina_uno', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'page1.html'));
+});
+```
+Le estamos pidiendo al server que nos lleve a page1, solo que el nombre de acceso a este es con pagina_uno.
+
+### EXPERIMENTO #2
+
+#### Abre http://localhost:3000/page1 en una pestaña. Observa la terminal del servidor. ¿Qué mensaje ves? Anota el ID.
+
+A user connected - ID: iz_HVFUvb0hzS4OTAAAF
+
+#### Abre http://localhost:3000/page2 en OTRA pestaña. Observa la terminal. ¿Qué mensaje ves? ¿El ID es diferente?
+Si el id es diferente.
+A user connected - ID: 4O2nCIAXXEnBXe-fAAAH
+
+#### Cierra la pestaña de page1. Observa la terminal. ¿Qué mensaje ves? ¿Coincide el ID con el que anotaste?
+Si, es el mismo id que anote al principio
+User disconnected - ID: iz_HVFUvb0hzS4OTAAAF
+
+#### Cierra la pestaña de page2. Observa la terminal.
+Si, pasa lo mismo si cierro la page2, me suelta el mismo id.
+user disconnected - ID: 4O2nCIAXXEnBXe-fAAAH
+
+### EXPIREMENTO #3
+
+#### Mueve la ventana de page1. Observa la terminal del servidor. ¿Qué evento se registra (win1update o win2update)? ¿Qué datos (Data:) ves?
+Se registra eñ win1update, y estos son los datos.
+Received win1update from ID: iTP2yCkegHuLkeEpAAAJ Data: { x: 268, y: 119, width: 1572, height: 914 }
+
+#### Mueve la ventana de page2. Observa la terminal. ¿Qué evento se registra ahora? ¿Qué datos ves?
+Ahora sale el win2update, y esto son los datos
+Received win2update from ID: abxEj6i33DGM7HZNAAAH Data: { x: 233, y: 55, width: 1572, height: 914 }
+
+#### Experimento clave: cambia socket.broadcast.emit(‘getdata’, page1); por socket.emit(‘getdata’, page1); (quitando broadcast). Reinicia el servidor, abre ambas páginas. Mueve page1. ¿Se actualiza la visualización en page2? ¿Por qué sí o por qué no? (Pista: ¿A quién le envía el mensaje socket.emit?). Restaura el código a broadcast.emit.
+
+<img width="1858" height="1020" alt="image" src="https://github.com/user-attachments/assets/869fbf14-0caa-4fd8-80e3-33536560612f" />
+Yo creo que antes la que no se actualiza es la del page1, porque al mover el page2, esta misma si se actualiza y se ve como subo la pagina, el cable se mueve al del circulo de la page1, pero si hago lo contrario, la page1 como que se intenta mover pero no deja, mas o menos como se ve en la imagen que puse. Basicamente, al modificarlo el socket.emit envia los datos a win1update, osea que se envia al mismo cliente que lo emitio, mientras que en el caso de la page2, con el broadcast se envia a todos clientes menos el que lo emitio (win2update).
+
+### EXPERIMENTO #4
+#### inicia el servidor. ¿Qué mensaje ves en la consola? ¿En qué puerto dice que está escuchando?
+Esta escuchando al puerto 3001
+Server is listening on http://localhost:3001
+
+#### Intenta abrir http://localhost:3000/page1. ¿Funciona?
+noup
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6148d7c7-361b-442b-8f4b-8f2194bd8732" />
+
+#### Intenta abrir http://localhost:3001/page1. ¿Funciona?
+sip
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/61753f48-687f-4050-88bf-8538e4f93cb3" />
+
+#### ¿Qué aprendiste sobre la variable port y la función listen? Restaura el puerto a 3000.
+Que al cambiar el numero del port, este va a escuchar a este numero con el listen, osea, si aparece 3001 en el port, el localhost tiene que aparecer con el 3001 porque si no, no lleva a ningun lado.
+
+
+
+
+
+
 
 
 
