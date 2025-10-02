@@ -279,6 +279,77 @@ El mensaje "Cambio detectado en posición o tamaño de la ventana" se repite muc
 
 ### EXPERIMENTO #5
 
+https://github.com/user-attachments/assets/10d15862-ae51-4ef5-b5cd-bc1e2b4f3e73
+
+Para innovación creativa, lo que hice fue que cada vez que alejemos la ventana de la otra, el circulo de la pagina 2 se vuelva mas pequeño, mientras que si lo acercamos, se vuelve mas grande. Esto se logra modificando la function draw del codigo hacia abajo:
+
+```js
+function draw() {
+    let vector2 = createVector(remotePageData.x, remotePageData.y);
+    let vector1 = createVector(currentPageData.x, currentPageData.y);
+    let resultingVector = createVector(vector2.x - vector1.x, vector2.y - vector1.y);
+    let distancia = resultingVector.mag();
+
+   
+    background(map(distancia, 0, 1000, 255, 0));  
+    
+    if (!isConnected) {
+        showStatus('Conectando al servidor...', color(255, 165, 0));
+        return;
+    }
+    
+    if (!hasRemoteData) {
+        showStatus('Esperando conexión de la otra ventana...', color(255, 165, 0));
+        return;
+    }
+    
+    if (!isFullySynced) {
+        showStatus('Sincronizando datos...', color(255, 165, 0));
+        return;
+    }
+
+    
+    let dynamicSize = map(distancia, 0, 1000, 200, 50); 
+    drawCircle(point2[0], point2[1], dynamicSize);
+
+    checkWindowPosition();
+
+    stroke(50);
+    strokeWeight(20);
+    drawCircle(resultingVector.x + remotePageData.width / 2, 
+               resultingVector.y + remotePageData.height / 2, 
+               150);
+    line(point2[0], point2[1], resultingVector.x + remotePageData.width / 2, resultingVector.y + remotePageData.height / 2);
+}
+
+function showStatus(message, statusColor) {
+    textSize(24);
+    textAlign(CENTER, CENTER);
+    noStroke();
+  
+    fill(0, 0, 0, 150); 
+    rectMode(CENTER);
+    let textW = textWidth(message) + 40;
+    let textH = 40;
+    rect(width / 2, 1*height / 6, textW, textH, 10);
+   
+    fill(statusColor);
+    text(message, width / 2, 1*height / 6);
+}
+
+function drawCircle(x, y, size = 150) {
+    fill(255, 0, 0);
+    ellipse(x, y, size, size);
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+```
+
+## ACTIVIDAD 05
+
+
 
 
 
