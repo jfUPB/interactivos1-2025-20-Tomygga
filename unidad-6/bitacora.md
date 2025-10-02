@@ -231,6 +231,57 @@ sip
 
 ### EXPERIMENTO #2
 
+<img width="1917" height="995" alt="image" src="https://github.com/user-attachments/assets/8e94af3f-7921-4c2e-a9fa-3f82f713ad05" />
+
+
+<img width="1919" height="991" alt="image" src="https://github.com/user-attachments/assets/ebd6debc-e83f-4836-9f2c-10d28d68cf65" />
+
+Al comentar la función del listener connect, la page2 se queda esperando la conexión de la otra ventana, pero como esta funcion que comentamos es la encargada de eso la page2 se va aquedar esperando la conexión con la otra ventana para siempre.
+
+### EXPERIMENTO #3
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/dc84d7d3-f8bc-4cf0-8deb-006ff16b3631" />
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/bd0db505-2565-4645-a244-1b3621a5fd47" />
+
+Pues no me paso nada raro, al mover una pagina se envian los datos de donde se mueven o donde se ubican a la otra, esto es para sincronizarlos y poder generar el cable.
+
+### EXPERIMENTO #4
+
+```js
+
+function checkWindowPosition() {
+    currentPageData = {
+        x: window.screenX,
+        y: window.screenY,
+        width: window.innerWidth,
+        height: window.innerHeight
+    };
+
+    if (
+        currentPageData.x !== previousPageData.x || 
+        currentPageData.y !== previousPageData.y || 
+        currentPageData.width !== previousPageData.width || 
+        currentPageData.height !== previousPageData.height
+    ) {
+        console.log('Cambio detectado en posición o tamaño de la ventana');
+
+        point2 = [currentPageData.width / 2, currentPageData.height / 2];
+        socket.emit('win2update', currentPageData, socket.id);
+        previousPageData = currentPageData;
+    }
+}
+```
+
+<img width="1181" height="1040" alt="image" src="https://github.com/user-attachments/assets/4f249b0e-058e-4426-861f-b0e936ad6561" />
+
+El mensaje "Cambio detectado en posición o tamaño de la ventana" se repite muchas veces porque el código no está comparando bien los datos antiguos con los nuevos. En vez de copiar los valores de la ventana, está copiando la referencia, o sea, los dos objetos (previousPageData y currentPageData) terminan siendo el mismo. Entonces, aunque parezca que está comparando, en realidad siempre se ven iguales o cambian juntos. Para arreglarlo, hay que hacer una copia real usando previousPageData = { ...currentPageData };, así sí se guardan los valores anteriores y la comparación funciona como debe.
+
+### EXPERIMENTO #5
+
+
+
+
 
 
 
