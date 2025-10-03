@@ -181,7 +181,7 @@ User disconnected - ID: iz_HVFUvb0hzS4OTAAAF
 Si, pasa lo mismo si cierro la page2, me suelta el mismo id.
 user disconnected - ID: 4O2nCIAXXEnBXe-fAAAH
 
-### EXPIREMENTO #3
+### EXPERIMENTO #3
 
 #### Mueve la ventana de page1. Observa la terminal del servidor. ¿Qué evento se registra (win1update o win2update)? ¿Qué datos (Data:) ves?
 Se registra eñ win1update, y estos son los datos.
@@ -770,6 +770,7 @@ En esta actividad aplique lo que vimos en las actividades pasadas, aunque tambie
 Aunque si me hubiera gustado meterle una cancion que este sincronizada con las tiles negras para que fuera mas intuitivo, pero como creo que eso lo vamos a ver en las unidades que faltan siento que con esto cumpli, es una aplicacion interactiva en tiempo real, por lo que creo que la nota es merecida. Asi que como dice el dicho, siembra vacas para que coseches vacaneria :d 
 
 <img width="201" height="251" alt="image" src="https://github.com/user-attachments/assets/695d5b8e-044d-4928-8606-33d9c8c27d66" />
+
 
 
 
