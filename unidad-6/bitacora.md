@@ -132,6 +132,7 @@ Es mas util porque permite trabajar con un solo lenguaje en todo el proyecto, lo
 
 ### Resume con tus propias palabras la diferencia fundamental entre una comunicación HTTP tradicional y una comunicación usando WebSockets/Socket.IO. ¿En qué tipo de aplicaciones has visto o podrías imaginar que se usa esta comunicación en tiempo real?
 
+Lo que diferencia el HTTP es que funciona con un modelo de cliente - servicio, donde digamos que un cliente al usar un navegador siempre tiene que pedirle algo al servidor, y el servidor tiene que responder esas peticiones. Mientras que el WebSockets/socket.io establece una conexión mas continua entre cliente y servidor, que permite enviar y recibir datos en tiempo real sin necesidad de pedirlo a cada rato. Este tipo se usa en aplicaciones donde la actualización es importante como no se, un chat online, juegos multificador, directos, colaboraciones en documentos como lo pueden ser canva o tambien gps.
 
 ## ACTIVIDAD 03
 
@@ -739,6 +740,45 @@ function windowResized() {
 Ya esto fue todo lo que cambie con respecto al original:d 
 
 ## AUTOEVALUACIÓN
+
+### ACTIVIDAD 1 (5)
+
+Como primera actividad para conocer esta nueva forma de hacer las cosas, siento que me fue bastante bien haciendo las actividades y aparte iba conociendo como funcionan cosas como el git bash ya que en mi caso nunca lo usaba (solo github desktop), y esto nuevo del node.js para hacer funcionar un servidor en linea, pero como tal la actividad esta completa, con cosas que fui descubriendo mediante las hacia y otras que investigue orque me surgieron la duda. Por eso al ser esta actividad tan corta esta fue mi defensa de porque creo que me merezco el 5.
+
+### ACTIVIDAD 2 (5)
+
+Esta parte era mas teorica o de pensar por uno mismo, donde no solo investigue sino que tambien aporte con los conocimientos que ya tenia y respondi esas preguntas mas situacionales como por ejemplo la del cliente-servidor, que me hizo entender mas como funciona esto al usar el ejemplo del restaurante, tambien comprendi muy bien lo de la url y tambien sus partes como el http, su dominio publico y las posibles paginas que se pueden encontrar al final del link. Donde siento que respondi de manera correcta a estas preguntas y di evidencias de que busque como hacerlas, como por ejemplo la actividad de la pagina web que me gusta o algo asi.
+
+Ya llegando a la fase final de esta actividad que estaba mas relacionado a la parte mas teorica de los http, la verdad es que siento que los conceptos me quedaron claros al realizar estas actividades donde si me toco buscar porque no tenia tanto conocimiento para responder por ejemplo lo del envio de bytes en comparacion al microbit, y me quedo claro que es porque el microbit se centra en enviar entre dos dispositivos o los que tenga conectados, mientras que en http tienden a ser cientos de miles dependiendo de lo que se quiera hacer ya que funciona diferente, por ejemplo un navegador web debe tener trillones de envios en poco tiempo por todos los dispositivos que lo usan, y tambien mencionar la pregunta final que me toco buscar sobre los websockets/socket.io porque como tal no lo conocia, pero ahora me queda claro que usar esto es mejor que el httpp.
+
+Siento que respondi de manera completa a todas las preguntas y me di el tiempo de comprender las preguntas que se me hacian para buscarle una respuesta, asi que creo que me merezco el 5 por eso.
+
+### ACTIVIDAD 3 (5)
+
+Esta actividad como tal me hizo ver el funcionamiento de lo que ya habiamos visto en las anteriores actividades pero ya aplicado en un codigo,ene ste caso en el server.js, y siento que estos experimentos estuvieron sencillos, aunque hubo otro que alguno que si me puso a pensar mas, pero como tal de esto saque como puede funcionar el servidor al modificar cosas como lo de la pagina_uno, los mensajes de la consola, el port y el listen.
+
+Pero como tal, al ser una actividad de experimentación era mas para ver el funcionamiento que podria ayudar para la actividad 5, y al ser tambien experimentos bastante cortos de hacer, junto a que siento que respondi bien y subi evidencias de que efectivamente hice los experimentos, siento que si me merezco el 5.
+
+### ACTIVIDAD 4 (5)
+
+Pasa casi lo mismo que con lo anterior, solo que en esta explore por dentro el funcionamiento de las paginas y me dejo claro que de ahi es donde se hace la parte visual, no en el html como yo creia al principio. Pero como tal, al tener que experimentar solo con la page2.js y teniendo en cuenta que el codigo era igual al de la page1.js, de aca tambien saque cosas para poder hacer la actividad 5 aunque si me quedo mas diferente a este ejemplo, pero como tal, la actividad esta completa y los experimentos estan evidenciados, siento que con eso ya merezco el 5.
+
+### ACTIVIDAD 5 (5)
+
+En esta actividad aplique lo que vimos en las actividades pasadas, aunque tambien sinceramente le pregunte a la ia como podria hacer esta actividad ya que en el ejemplo que se dio para esta unidad, el page1.js y el page2.js eran lo mismo, aqui lo que quise hacer fue el piano tiles donde en la page1 se generan las tiles negras y en la page 2 se pudiera jugar como si fuera el juego de celular o un guitar hero, aunque si me quedo un poco dificil ya que si cuesta sacar la tecla verde. Pero como tal la actividad si esta completa y todo esta con su respuesta, por eso diria que merezco el 5.
+
+Aunque si me hubiera gustado meterle una cancion que este sincronizada con las tiles negras para que fuera mas intuitivo, pero como creo que eso lo vamos a ver en las unidades que faltan siento que con esto cumpli, es una aplicacion interactiva en tiempo real, por lo que creo que la nota es merecida. Cultive vacas para cosechar vacaneria :d 
+
+GRACIAS <3
+
+<img width="201" height="251" alt="image" src="https://github.com/user-attachments/assets/695d5b8e-044d-4928-8606-33d9c8c27d66" />
+
+
+
+
+
+
+
 
 
 
