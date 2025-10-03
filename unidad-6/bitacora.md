@@ -767,11 +767,12 @@ Pasa casi lo mismo que con lo anterior, solo que en esta explore por dentro el f
 
 En esta actividad aplique lo que vimos en las actividades pasadas, aunque tambien sinceramente le pregunte a la ia como podria hacer esta actividad ya que en el ejemplo que se dio para esta unidad, el page1.js y el page2.js eran lo mismo, aqui lo que quise hacer fue el piano tiles donde en la page1 se generan las tiles negras y en la page 2 se pudiera jugar como si fuera el juego de celular o un guitar hero, aunque si me quedo un poco dificil ya que si cuesta sacar la tecla verde. Pero como tal la actividad si esta completa y todo esta con su respuesta, por eso diria que merezco el 5.
 
-Aunque si me hubiera gustado meterle una cancion que este sincronizada con las tiles negras para que fuera mas intuitivo, pero como creo que eso lo vamos a ver en las unidades que faltan siento que con esto cumpli, es una aplicacion interactiva en tiempo real, por lo que creo que la nota es merecida. Cultive vacas para cosechar vacaneria :d 
+Aunque si me hubiera gustado meterle una cancion que este sincronizada con las tiles negras para que fuera mas intuitivo, pero como creo que eso lo vamos a ver en las unidades que faltan siento que con esto cumpli, es una aplicacion interactiva en tiempo real, por lo que creo que la nota es merecida. Asi que como dice el dicho, Siembra vacas para que coseches vacaneria :d 
 
 GRACIAS <3
 
 <img width="201" height="251" alt="image" src="https://github.com/user-attachments/assets/695d5b8e-044d-4928-8606-33d9c8c27d66" />
+
 
 
 
