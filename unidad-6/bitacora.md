@@ -351,9 +351,18 @@ function windowResized() {
 
 ### EXPLICACION DE LA IDEA Y BOCETO
 
+Como tal, la idea es hacer una especie de piano tiles, sin musica obviamente, donde desde la page1 se generen las tiles negras y pasen a la page2 donde uno tenga que presionar las teclas D F K L, si aparecen con un rojo mas oscuro es que fallo al no presionar la tecla a tiempo perfecto, pero si aparece un color verde al presionar la tecla significa que si fue presionada con un timing perfecto. Es algo simple pero interesante
+
+<img width="2559" height="1231" alt="image" src="https://github.com/user-attachments/assets/27584fb6-251e-4d47-810b-d90c0d6a032e" />
+
+<img width="2559" height="1226" alt="image" src="https://github.com/user-attachments/assets/f3997a8d-5e35-4b92-b123-b11c09d1bea1" />
 
 ### IMPLEMENTACIÓN DE LA IDEA
 
+https://github.com/user-attachments/assets/5c4d8829-aec4-415b-b6f2-1f9560ba4a33
+
+no supe arreglar porque las teclas al pasar de pagina se mueven mas rapido pero por lo menos es funcional :D
+y tambien implementar musica era mas dificil asi que por eso no lo hice. 
 
 ### CODIGOS
 
@@ -728,6 +737,9 @@ function windowResized() {
 
 ```
 Ya esto fue todo lo que cambie con respecto al original:d 
+
+## AUTOEVALUACIÓN
+
 
 
 
