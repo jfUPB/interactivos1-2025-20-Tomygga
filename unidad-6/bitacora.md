@@ -349,8 +349,385 @@ function windowResized() {
 
 ## ACTIVIDAD 05
 
+### EXPLICACION DE LA IDEA Y BOCETO
 
 
+### IMPLEMENTACIÓN DE LA IDEA
+
+
+### CODIGOS
+
+#### SERVER.JS
+
+```js
+const express = require("express");
+const http = require("http");
+const socketIO = require("socket.io");
+const path = require("path");
+const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+const port = 3000;
+
+
+let page1 = { x: 0, y: 0, width: 100, height: 100 };
+let page2 = { x: 0, y: 0, width: 100, height: 100 };
+
+let connectedClients = new Map();
+let syncedClients = new Set();
+
+
+app.use(express.static(path.join(__dirname, "views")));
+
+app.get("/page1", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "page1.html"));
+});
+
+app.get("/page2", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "page2.html"));
+});
+
+
+io.on("connection", (socket) => {
+  console.log("Cliente conectado - ID:", socket.id);
+  connectedClients.set(socket.id, { page: null, synced: false });
+
+
+  socket.on("disconnect", () => {
+    console.log("Cliente desconectado - ID:", socket.id);
+    connectedClients.delete(socket.id);
+    syncedClients.delete(socket.id);
+    socket.broadcast.emit("peerDisconnected");
+  });
+
+ 
+  socket.on("tilePosition", (data) => {
+    console.log("tilePosition recibido:", data);
+    if (isValidTileData(data)) {
+      io.emit("updateTile", data);
+    }
+  });
+
+  
+  socket.on("newTile", (tile) => {
+    console.log("Nueva tile recibida de page1:", tile);
+    if (tile && typeof tile.x === "number" && typeof tile.y === "number") {
+      socket.broadcast.emit("newTile", tile);
+    }
+  });
+
+ 
+  socket.on("keyPress", (data) => {
+    console.log("keyPress recibido:", data);
+    io.emit("keyResult", data);
+  });
+
+
+  socket.on("win1update", (window1) => {
+    console.log("win1update de", socket.id, window1);
+    if (isValidWindowData(window1)) {
+      page1 = window1;
+      connectedClients.set(socket.id, { page: "page1", synced: false });
+      socket.broadcast.emit("getdata", { data: page1, from: "page1" });
+      checkAndNotifySyncStatus();
+    }
+  });
+
+  socket.on("win2update", (window2) => {
+    console.log("win2update de", socket.id, window2);
+    if (isValidWindowData(window2)) {
+      page2 = window2;
+      connectedClients.set(socket.id, { page: "page2", synced: false });
+      socket.broadcast.emit("getdata", { data: page2, from: "page2" });
+      checkAndNotifySyncStatus();
+    }
+  });
+
+  socket.on("requestSync", () => {
+    const clientInfo = connectedClients.get(socket.id);
+    if (clientInfo?.page === "page1") {
+      socket.emit("getdata", { data: page2, from: "page2" });
+    } else if (clientInfo?.page === "page2") {
+      socket.emit("getdata", { data: page1, from: "page1" });
+    }
+  });
+
+  socket.on("confirmSync", () => {
+    syncedClients.add(socket.id);
+    const clientInfo = connectedClients.get(socket.id);
+    if (clientInfo) {
+      connectedClients.set(socket.id, { ...clientInfo, synced: true });
+    }
+    checkAndNotifySyncStatus();
+  });
+});
+
+
+function isValidWindowData(data) {
+  return (
+    data &&
+    typeof data.x === "number" &&
+    typeof data.y === "number" &&
+    typeof data.width === "number" &&
+    data.width > 0 &&
+    typeof data.height === "number" &&
+    data.height > 0
+  );
+}
+
+function isValidTileData(data) {
+  return (
+    data &&
+    typeof data.id === "string" &&
+    typeof data.x === "number" &&
+    typeof data.y === "number"
+  );
+}
+
+
+function checkAndNotifySyncStatus() {
+  const page1Clients = Array.from(connectedClients.values()).filter(
+    (info) => info.page === "page1"
+  );
+  const page2Clients = Array.from(connectedClients.values()).filter(
+    (info) => info.page === "page2"
+  );
+
+  const bothPagesConnected =
+    page1Clients.length > 0 && page2Clients.length > 0;
+  const allClientsSynced = Array.from(connectedClients.keys()).every((id) =>
+    syncedClients.has(id)
+  );
+  const hasMinimumClients = connectedClients.size >= 2;
+
+  console.log(
+    `Debug - Clients: ${connectedClients.size}, P1: ${page1Clients.length}, P2: ${page2Clients.length}, Synced: ${syncedClients.size}`
+  );
+
+  if (bothPagesConnected && allClientsSynced && hasMinimumClients) {
+    io.emit("fullySynced", true);
+    console.log("Todos los clientes están sincronizados");
+  } else {
+    io.emit("fullySynced", false);
+    console.log(
+      `Sync status: pages=${bothPagesConnected}, synced=${allClientsSynced}, clients=${connectedClients.size}`
+    );
+  }
+}
+
+server.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
+```
+#### page1.js
+
+```js
+let socket;
+let isConnected = false;
+let tiles = [];
+let cols = 4;
+let tileSize = 80;
+let keys = ["D", "F", "K", "L"];
+
+let tileInterval;
+
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    frameRate(60);
+
+    socket = io();
+
+    
+    socket.on("connect", () => {
+        console.log("Conectado con ID:", socket.id);
+        isConnected = true;
+    });
+
+    socket.on("disconnect", () => {
+        console.log("Desconectado del servidor");
+        isConnected = false;
+    });
+
+   
+    tileInterval = setInterval(() => {
+        let col = floor(random(cols));
+        let rectHeight = height / cols;
+        let y = rectHeight * col + rectHeight / 2 - tileSize / 2;
+
+        let tile = {
+            id: Date.now() + "-" + col,
+            col: col,
+            x: 0,
+            y: y,
+            speed: 5,
+            remove: false
+        };
+
+        tiles.push(tile);
+    }, 1500);
+}
+
+
+function draw() {
+    background(220);
+
+    if (!isConnected) {
+        showStatus("Conectando al servidor...", color(255, 165, 0));
+        return;
+    }
+
+    for (let t of tiles) {
+        t.x += t.speed;
+
+        fill(0);
+        rect(t.x, t.y, tileSize, tileSize);
+
+        if (t.x >= width) {
+            socket.emit("tilePosition", {
+                id: t.id,
+                col: t.col,
+                x: 0,           
+                y: t.y / height 
+            });
+            t.remove = true;
+        }
+    }
+
+    
+    tiles = tiles.filter(t => !t.remove);
+}
+
+
+function showStatus(message, statusColor) {
+    textSize(24);
+    textAlign(CENTER, CENTER);
+    noStroke();
+
+    
+    fill(0, 0, 0, 150);
+    rectMode(CENTER);
+    let textW = textWidth(message) + 40;
+    let textH = 40;
+    rect(width / 2, height / 6, textW, textH, 10);
+
+    
+    fill(statusColor);
+    text(message, width / 2, height / 6);
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+```
+#### page2.js
+
+```js
+let socket;
+let tiles = [];
+let cols = 4;
+let tileSize = 80; 
+let keys = ["D", "F", "K", "L"];
+let keyMap = { "d": 0, "f": 1, "k": 2, "l": 3 };
+let columnColors = ["#ff6666", "#ff6666", "#ff6666", "#ff6666"];
+let feedbackTimer = [0, 0, 0, 0];
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  frameRate(60);
+
+  socket = io();
+
+  socket.on("updateTile", (data) => {
+    if (!isValidTileData(data)) return;
+
+    let rectHeight = height / cols;
+    let y = rectHeight * data.col + rectHeight / 2 - tileSize / 2;
+
+    tiles.push({
+      id: data.id,
+      col: data.col,
+      x: data.x * width,   
+      y: y,
+      hit: false,
+      speed: 8
+    });
+  });
+
+  socket.on("keyResult", (data) => {
+    if (data && typeof data.col === "number") {
+      columnColors[data.col] = data.success ? "#00cc66" : "#cc0000";
+      feedbackTimer[data.col] = 30;
+    }
+  });
+}
+
+function draw() {
+  background(240);
+
+  let rectHeight = height / cols;
+
+  for (let i = 0; i < cols; i++) {
+    if (feedbackTimer[i] > 0) {
+      feedbackTimer[i]--;
+      if (feedbackTimer[i] === 0) columnColors[i] = "#ff6666";
+    }
+
+    fill(columnColors[i]);
+    rect(width - 120, rectHeight * i, 120, rectHeight);
+
+    fill(0);
+    textAlign(CENTER, CENTER);
+    textSize(24);
+    text(keys[i], width - 60, rectHeight * i + rectHeight / 2);
+  }
+
+  for (let t of tiles) {
+    if (!t.hit) t.x += t.speed;
+
+    fill(0);
+    rect(t.x, t.y, tileSize, tileSize);
+
+    if (t.x > width - 120 && !t.hit) {
+      columnColors[t.col] = "#cc0000";
+      feedbackTimer[t.col] = 30;
+      t.hit = true;
+      socket.emit("keyPress", { col: t.col, success: false });
+    }
+  }
+
+  tiles = tiles.filter(t => !t.hit && t.x < width + tileSize);
+}
+
+function keyPressed() {
+  let col = keyMap[key.toLowerCase()];
+  if (col !== undefined) {
+    let hitTile = tiles.find(
+      t => !t.hit && t.col === col && t.x > width - 140 && t.x < width - 100
+    );
+
+    if (hitTile) {
+      hitTile.hit = true;
+      socket.emit("keyPress", { col: col, success: true });
+    } else {
+      socket.emit("keyPress", { col: col, success: false });
+    }
+  }
+}
+
+function isValidTileData(data) {
+  return (
+    data &&
+    typeof data.x === "number" &&
+    typeof data.col === "number"
+  );
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+```
+Ya esto fue todo lo que cambie con respecto al original:d 
 
 
 
