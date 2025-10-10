@@ -36,8 +36,42 @@ La función de touchMoved() lo que hace es que llama continuamentre mientras el 
 
 El threshold es mas como para optimizar el codigo, ya que con esto el codigo no envia un mensaje por cada pequeño movimiento, sino que comprueba con lastTouchX y lastTouchY supera un limite, lo que evita que inunde la red de mensajes para que no reporte cosas que no son necesarias.
 ### Compara brevemente Dev Tunnels con simplemente usar la IP local. ¿Cuáles son las ventajas y desventajas de cada uno?
+Usar la IP local permite acceder a tu aplicación dentro de la misma red (LAN) sin depender de servicios externos. Es rápido, simple y ofrece el mejor rendimiento posible porque la conexión es directa entre dispositivos. Sin embargo, su alcance está limitado: solo funciona mientras todos los equipos estén en la misma red y el firewall lo permita. Además, normalmente no cuenta con HTTPS, lo que puede causar problemas al probar integraciones que requieren conexiones seguras.
+
+Por otro lado, Dev Tunnels permite exponer tu servidor local a Internet mediante una URL pública y segura (HTTPS), sin necesidad de configurar puertos o redes. Es ideal para compartir tu app con otras personas o probar servicios que necesitan un callback remoto, como webhooks o autenticación OAuth. A cambio, introduce algo de latencia, depende de la estabilidad del servicio del túnel y la conexión puede expirar o requerir reactivación. En resumen, es más flexible y práctico, pero menos directo y estable que usar la IP local.
 
 ### Coloca en tu bitácora capturas de pantalla del sistema completo funcionando. Esto lo puedes hacer abriendo tanto el mobile como el desktop en tu computador y tomando una captura de pantalla de todos los involucrados (celular, computador y terminal).
+
+https://github.com/user-attachments/assets/f70da731-0a7e-4b04-99f4-1964c7efccd3
+
+## ACTIVIDAD 3
+
+### ¿Cuál es la función principal de express.static(‘public’) en este servidor? ¿Cómo se compara con el uso de app.get(‘/ruta’, …) del servidor de la Unidad 6?
+
+La función princial de express.static(‘public’) es permitir que el servidor envie automaticamente los archivos estaticos ubicados en la carpeta public como los HTML o los javascript, sin necesidad de definir rutas manuales. A diferencia del otro que usamos (app.get) que requiere especificar la respuesta para cada solicitud de manera programada. Por eso, express.static sirve directamente para facilitar y reducir el codigo necesario en el servidor.
+
+### Explica detalladamente el flujo de un mensaje táctil: ¿Qué evento lo envía desde el móvil? ¿Qué evento lo recibe el servidor? ¿Qué hace el servidor con él? ¿Qué evento lo envía el servidor al escritorio? ¿Por qué se usa socket.broadcast.emit en lugar de io.emit o socket.emit en este caso?
+
+El flujo de un mensaje táctil inicia cuando el móvil detecta un evento de toque (por ejemplo, touchmove o touchstart) y lo envía al servidor mediante socket.emit('message', datos). El servidor recibe ese evento dentro del manejador socket.on, registra el mensaje con console.log y lo retransmite a los demás clientes conectados usando socket.broadcast.emit. Los demás dispositivos (por ejemplo, escritorios) reciben este mensaje mediante su propio socket.on, lo que les permite reaccionar en tiempo real a la interacción del móvil. Se utiliza socket.broadcast.emit porque envía el mensaje a todos los clientes excepto al emisor, evitando que el móvil reciba su propio mensaje duplicado.
+
+### Si conectaras dos computadores de escritorio y un móvil a este servidor, y movieras el dedo en el móvil, ¿Quién recibiría el mensaje retransmitido por el servidor? ¿Por qué?
+
+Si conectas dos computadores de escritorio y un celular al servidor, cuando el celular emita un mensaje táctil, este será recibido únicamente por los dos escritorios. Esto ocurre porque el servidor usa socket.broadcast.emit, que retransmite el mensaje a todos los demás clientes conectados excepto al que lo envió. En consecuencia, el celular no verá su propio mensaje reflejado, mientras que los demás dispositivos sí lo recibirán y podrán procesarlo.
+
+### ¿Qué información útil te proporcionan los mensajes console.log en el servidor durante la ejecución?
+
+Los mensajes console.log en el servidor proporcionan información útil para monitorear el comportamiento de la aplicación en tiempo real. Permiten saber cuándo un cliente se conecta o se desconecta, cuándo se recibe un mensaje y cuál es su contenido. Esto facilita la depuración, el seguimiento del flujo de datos y la verificación de que los eventos entre los distintos clientes y el servidor se están produciendo correctamente.
+
+## ACTIVIDAD 4
+
+
+
+
+## APPKY
+
+
+
+
 
 
 
