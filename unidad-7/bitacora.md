@@ -63,11 +63,12 @@ Si conectas dos computadores de escritorio y un celular al servidor, cuando el c
 Los mensajes console.log en el servidor proporcionan información útil para monitorear el comportamiento de la aplicación en tiempo real. Permiten saber cuándo un cliente se conecta o se desconecta, cuándo se recibe un mensaje y cuál es su contenido. Esto facilita la depuración, el seguimiento del flujo de datos y la verificación de que los eventos entre los distintos clientes y el servidor se están produciendo correctamente.
 
 ## ACTIVIDAD 4
+### DIAGRAMA 
 
+<img width="1960" height="518" alt="image" src="https://github.com/user-attachments/assets/2ecc4e02-02d6-479f-8298-eb42142aa9d7" />
 
+## APPLY
 
-
-## APPKY
 
 
 
