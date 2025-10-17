@@ -73,7 +73,7 @@ Voy a hacer un viaje espacial, la canción que elegi para esta ocasión fue astr
 
 [ASTROTHUNDER](https://www.youtube.com/watch?v=Pa67b28h0vY&list=RDPa67b28h0vY&start_radio=1)
 
-Como tal va a ver una nave espacial que se puede controlar con el touch del movil solo las posiciones verticales, que va a ir viajando por un fondo del espacio con estrellas, nebulosas, planetas y meteoritos, que van a ir golpeando a la nave espacial hasta quitarle la vida, donde si la nave por asi decirlo muere, la canción se para y deja la nave flotando a la deriva. Lo que va a reaccionar a la canción principalmente van a ser las nebulosas que van a ir aumentando su tamaño o bajando dependiendo de los sintetizadores de la canción, como tal quiero que el usuario mientras ve la interacción con la canción, vaya esquivando los meteoritos para poder terminar la canción.
+Como tal va a ver una nave espacial que se puede controlar con el touch del movil solo las posiciones verticales, que va a ir viajando por un fondo del espacio con estrellas, nebulosas, planetas y meteoritos, que van a ir golpeando a la nave espacial hasta quitarle la vida, donde si la nave por asi decirlo muere, la canción se para y deja la nave flotando a la deriva. Lo que va a reaccionar a la canción principalmente van a ser las nebulosas que van a ir aumentando su tamaño o bajando dependiendo de los sintetizadores de la canción, como tal quiero que el usuario mientras ve la interacción con la canción, vaya esquivando los meteoritos para poder terminar la canción. Aparte, la velocidad de la nave depende de la canción.
 
 <img width="1166" height="729" alt="image" src="https://github.com/user-attachments/assets/c4a8aa03-19bb-4429-aed2-8b981fb9873b" />
 
@@ -711,6 +711,7 @@ function windowResized() {
 </html>
 
 ```
+
 
 
 
