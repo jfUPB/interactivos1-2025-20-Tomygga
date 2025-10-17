@@ -734,6 +734,7 @@ Aqui me di el tiempo de analizar el codigo para poder hacer el diagrama y creo q
 El apply mas dificil hasta el momento, si me concentre en hacer el trabajo como se debia con la ayuda de la ia, poniendo a prueba los conocimientos que tenia junto a mi habilidad de prompt. Lo probe muchas veces y no funciono, pero cuando lo logre senti una gran satisfaccion al hacer este programa. Donde funciona como se debe y como se establecio en el apply, aunque haya que dar click para iniciar la cancion (problema que no logre solucionar), si creo que me merezco el 5.
 
 
+TOTAL (5)
 
 
 
