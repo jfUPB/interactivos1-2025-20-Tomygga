@@ -713,6 +713,27 @@ function windowResized() {
 ```
 ## AUTOEVALUACION
 
+### ACTIVIDAD 1 (5)
+
+Me di el tiempo de experimentar, investigar y probar el funcionamiento del codigo, tambien respondi todas las preguntas con lo que se pedia y con pruebas. Entonces si creo que me merezco el 5 esta defensa no tiene mucho mas que decir.
+
+### ACTIVIDAD 2 (5)
+
+Esto era solo de investigación, pues si me di el tiempo de investigar y responder en base a la información que dio la unidad, por ende creo que me merezco el 5.
+
+### ACTIVIDAD 3 (5)
+
+Tambien entendi los temas que se explicaban para hacer el horrible apply, respondi todo como se correspondia e investigue lo que se debia, 5.
+
+### ACTIVIDAD 4 (5)
+
+Aqui me di el tiempo de analizar el codigo para poder hacer el diagrama y creo que me quedo bastante bien, aunque odio hacer diagramas porfavor no mas de estos trabajos, por esto 5.
+
+### ACTIVIDAD 5 (5) 
+
+El apply mas dificil hasta el momento, si me concentre en hacer el trabajo como se debia con la ayuda de la ia, poniendo a prueba los conocimientos que tenia junto a mi habilidad de prompt. Lo probe muchas veces y no funciono, pero cuando lo logre senti una gran satisfaccion al hacer este programa. Donde funciona como se debe y como se establecio en el apply, aunque haya que dar click para iniciar la cancion (problema que no logre solucionar), si creo que me merezco el 5.
+
+
 
 
 
