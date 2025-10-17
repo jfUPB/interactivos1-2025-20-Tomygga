@@ -65,9 +65,10 @@ Los mensajes console.log en el servidor proporcionan información útil para mon
 ## ACTIVIDAD 4
 ### DIAGRAMA 
 
-<img width="1329" height="686" alt="image" src="https://github.com/user-attachments/assets/44dd1456-c2ed-4db4-9259-82591f4c9cd3" />
+<img width="2091" height="951" alt="image" src="https://github.com/user-attachments/assets/d20e49ef-4feb-4431-9930-c6738ac79a00" />
 
 ## APPLY
+
 
 
 
