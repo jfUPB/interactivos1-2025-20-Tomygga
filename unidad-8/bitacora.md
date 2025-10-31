@@ -34,3 +34,14 @@ Con el boton A del microbit, se van a generar los murcielagos y con el Boton B l
 
 
 
+# AUTOEVALUACION:
+| Ítem                | Descripción    | Cumplimiento             | Justificación                                                                                        |
+| ------------------- | -------------- | ------------------------ | ---------------------------------------------------------------------------------------------------- |
+| 1                   | Actividad 1    |  Parcialmente completa | No hice el diagrama, pero entregué lo demás.                                                         |
+| 2                   | Actividad 2    |  No realizada           | No preparé el código                                                        |
+| 3                   | Autoevaluación |  Completa               | Realicé la autoevaluación con sinceridad.                                                            |
+| **Resultado final** | **Nota: 2,5**  |                          | Realicé parte de la actividad 1 y la autoevaluación, pero no la actividad 2, por eso mi nota es 2,5. |
+
+
+
+
