@@ -25,7 +25,11 @@ Con el boton A del microbit, se van a generar los murcielagos y con el Boton B l
 
 ### Haz bocetos de todas las interfaces del sistema.
 
+<img width="1679" height="1018" alt="image" src="https://github.com/user-attachments/assets/f0948184-c9fc-461e-8511-a5e3ac66d201" />
+
 ### Diagrama
+
+## ACTIVIDAD 2 
 
 
 
